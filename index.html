@@ -54,8 +54,8 @@ tailwind.config = {
 <header class="site-header" id="site-header">
   <div class="max-w-7xl mx-auto h-full px-6 sm:px-8 border-x border-transparent xl:border-black/11 flex items-center justify-between">
     <!-- Brand Logo -->
-    <a href="#hero" class="brand-capsule group">
-      <img src="/images/logo-white.png" alt="Clara AI">
+    <a href="#hero" class="brand-link" aria-label="Clara AI Home">
+      <img src="/images/logo.png" alt="Clara AI">
     </a>
 
     <!-- Desktop Navigation Links -->
@@ -91,9 +91,9 @@ tailwind.config = {
 <aside id="mobile-drawer" aria-hidden="true">
   <div>
     <div class="flex items-center justify-between pb-6 border-b border-gray-100">
-      <div class="brand-capsule">
-        <img src="/images/logo-white.png" alt="Clara AI" style="height: 22px; width: auto;">
-      </div>
+      <a href="#hero" class="brand-link" aria-label="Clara AI Home">
+        <img src="/images/logo.png" alt="Clara AI" style="height: 24px; width: auto;">
+      </a>
       <button id="nav-close" class="p-1.5 text-gray-500 hover:text-gray-900" aria-label="Close menu">
         <i class="fa-solid fa-xmark text-lg"></i>
       </button>
