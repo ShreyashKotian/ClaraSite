@@ -71,12 +71,25 @@ if (FRONTEND_DEMO_URL) {
   }
 }
 
-// Serve static files for marketing landing page
-app.use(express.static(__dirname, { 
-  setHeaders: (res) => {
-    res.setHeader('Cache-Control', 'no-cache');
+// Serve static files for marketing landing page from public and root directories
+const staticDirs = [
+  path.join(__dirname, 'public'),
+  path.join(process.cwd(), 'public'),
+  __dirname,
+  process.cwd()
+];
+
+const registeredDirs = new Set();
+for (const dir of staticDirs) {
+  if (dir && fs.existsSync(dir) && !registeredDirs.has(dir)) {
+    registeredDirs.add(dir);
+    app.use(express.static(dir, { 
+      setHeaders: (res) => {
+        res.setHeader('Cache-Control', 'no-cache');
+      }
+    }));
   }
-}));
+}
 
 // Mock demo request endpoint
 app.post('/tables/demo_requests', express.json(), (req, res) => {
@@ -84,9 +97,14 @@ app.post('/tables/demo_requests', express.json(), (req, res) => {
   res.status(200).json({ success: true, message: 'Mock response recorded' });
 });
 
-// Catch-all route: serve index.html for all other requests (SPA routing)
+// Catch-all route: serve index.html for page routing only (not missing file assets)
 app.get('*', (req, res) => {
-  const indexPath = path.join(__dirname, 'index.html');
+  if (path.extname(req.path)) {
+    return res.status(404).send('Not Found');
+  }
+  const indexPath = fs.existsSync(path.join(__dirname, 'index.html'))
+    ? path.join(__dirname, 'index.html')
+    : path.join(process.cwd(), 'index.html');
   res.setHeader('Cache-Control', 'no-cache');
   res.sendFile(indexPath);
 });
