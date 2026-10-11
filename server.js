@@ -20,17 +20,29 @@ async function proxyToDemo(req, res, targetSubpath) {
       targetUrl.search = originalQuery;
     }
 
+    // Clean headers before querying upstream internal service
+    const fetchHeaders = { ...req.headers };
+    delete fetchHeaders.host;
+    delete fetchHeaders['accept-encoding'];
+
     const response = await fetch(targetUrl.toString(), {
       method: req.method,
-      headers: {
-        ...req.headers,
-        host: targetUrl.host
-      }
+      headers: fetchHeaders
     });
 
     res.status(response.status);
+
+    // Omit hop-by-hop and encoding headers so browser doesn't fail with ERR_CONTENT_DECODING_FAILED
+    const skipHeaders = new Set([
+      'transfer-encoding',
+      'connection',
+      'content-encoding',
+      'content-length',
+      'keep-alive'
+    ]);
+
     response.headers.forEach((value, key) => {
-      if (!['transfer-encoding', 'connection'].includes(key.toLowerCase())) {
+      if (!skipHeaders.has(key.toLowerCase())) {
         res.setHeader(key, value);
       }
     });
