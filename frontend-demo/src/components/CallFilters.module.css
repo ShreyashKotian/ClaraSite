@@ -1,0 +1,118 @@
+/* The search box and outcome chips above a list of calls. Lives beside the
+   component rather than in either page's stylesheet, so the dashboard and
+   the analytics page cannot style the same control differently. */
+
+.search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: min(280px, 40vw);
+  padding: 7px 12px;
+  color: var(--text-faint);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  transition: border-color var(--t) var(--ease);
+}
+.search:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-ring);
+}
+.searchInput {
+  flex: 1;
+  min-width: 0;
+  font: inherit;
+  font-size: 0.86rem;
+  color: var(--text);
+  background: none;
+  border: none;
+  outline: none;
+}
+/* The wrapper draws the focus ring, so the input must not draw a second one
+   inside it — this needs the pseudo-class to outrank :focus-visible in
+   index.css. */
+.searchInput:focus,
+.searchInput:focus-visible {
+  outline: none;
+}
+.searchInput::placeholder {
+  color: var(--text-faint);
+}
+/* The browser's own clear button is a grey glyph that ignores the theme. */
+.searchInput::-webkit-search-cancel-button {
+  appearance: none;
+}
+
+/* Outcome filters */
+
+.filterRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.filterChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 13px;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-sub);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  cursor: pointer;
+  transition:
+    color var(--t) var(--ease),
+    background var(--t) var(--ease),
+    border-color var(--t) var(--ease);
+}
+.filterChip svg {
+  flex: none;
+}
+.filterChip:hover {
+  border-color: var(--border-strong);
+}
+
+/* Each chip wears the colour of the outcome it selects — at rest in the text
+   and icon, filled in once selected — so the row speaks the same language as
+   the Result column beneath it. */
+.filterChip[data-filter="all"] {
+  color: var(--accent-text);
+}
+.filterChip[data-filter="qualified"] {
+  color: var(--green-text);
+}
+.filterChip[data-filter="follow_up"] {
+  color: var(--amber-text);
+}
+.filterChip[data-filter="at_risk"] {
+  color: var(--red-text);
+}
+.filterChip[data-filter="nurture"] {
+  color: var(--text-faint);
+}
+
+.filterChip[data-active="true"][data-filter="all"] {
+  background: var(--accent-wash);
+  border-color: var(--accent-ring);
+}
+.filterChip[data-active="true"][data-filter="qualified"] {
+  background: var(--green-bg);
+  border-color: var(--green-border);
+}
+.filterChip[data-active="true"][data-filter="follow_up"] {
+  background: var(--amber-bg);
+  border-color: var(--amber-border);
+}
+.filterChip[data-active="true"][data-filter="at_risk"] {
+  background: var(--red-bg);
+  border-color: var(--red-border);
+}
+.filterChip[data-active="true"][data-filter="nurture"] {
+  color: var(--text);
+  background: var(--surface-3);
+  border-color: var(--border-strong);
+}

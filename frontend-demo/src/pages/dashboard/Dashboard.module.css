@@ -1,0 +1,1286 @@
+/* Dashboard — tokens from index.css, same 16px rhythm as the other pages */
+
+.page {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 100%;
+  padding: 18px 24px 22px;
+  background: var(--bg);
+}
+.page > * {
+  flex: 0 0 auto;
+}
+
+/* ─── Header ─────────────────────────────────────────────────────────────── */
+
+.pageHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.pageTitle {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--text);
+}
+.pageSub {
+  margin-top: 4px;
+  font-size: 0.88rem;
+  color: var(--text-sub);
+}
+.refreshing {
+  margin-left: 10px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--accent-text);
+}
+/* ─── Date range picker ──────────────────────────────────────────────────── */
+
+/* The span between the two ends, squared off so the days read as one block. */
+
+/* ─── KPI row ────────────────────────────────────────────────────────────── */
+
+.kpiRow {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+}
+.kpi {
+  padding: 15px 18px;
+  border-left: 1px solid var(--sep);
+}
+.kpi:first-child {
+  border-left: none;
+}
+
+/* Four of the five cards name a group of calls, so pressing one narrows the
+   list below to it. They are real buttons — a card is a large target and the
+   keyboard has to reach it — which means undoing the button defaults that
+   would otherwise centre the text and drop the font. */
+.kpi[data-clickable="true"] {
+  /* Block, because a button centres its contents by default and these cards
+     have to line up with the one that is not a button. */
+  display: block;
+  width: 100%;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  background: none;
+  border-top: none;
+  border-right: none;
+  border-bottom: none;
+  cursor: pointer;
+  transition:
+    background var(--t) var(--ease),
+    box-shadow var(--t) var(--ease);
+}
+.kpi[data-clickable="true"]:hover {
+  background: var(--surface-2);
+}
+.kpi[data-clickable="true"]:focus-visible {
+  outline: none;
+  background: var(--surface-2);
+  box-shadow: inset 0 0 0 2px var(--accent);
+}
+/* The card driving the list right now. An inset line rather than a border, so
+   the card cannot change size and nudge its neighbours when it is chosen. */
+.kpi[data-active="true"] {
+  background: var(--surface-2);
+  box-shadow: inset 0 2px 0 0 var(--accent);
+}
+.kpiTop {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.kpiIcon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  color: var(--green);
+  background: color-mix(in srgb, var(--green) 13%, var(--surface));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--green) 22%, transparent);
+}
+.kpiIcon[data-tone="amber"] {
+  color: var(--amber);
+  background: color-mix(in srgb, var(--amber) 13%, var(--surface));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--amber) 22%, transparent);
+}
+.kpiIcon[data-tone="red"] {
+  color: var(--red);
+  background: color-mix(in srgb, var(--red) 13%, var(--surface));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--red) 22%, transparent);
+}
+.kpiIcon[data-tone="violet"] {
+  color: var(--violet);
+  background: color-mix(in srgb, var(--violet) 13%, var(--surface));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--violet) 22%, transparent);
+}
+.kpiLabel {
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-faint);
+  line-height: 1.3;
+}
+/* Value and its change share a line — two stacked rows made the row far
+   taller than the numbers deserved. */
+.kpiBottom {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  margin-top: 10px;
+}
+.kpiValue {
+  font-size: 1.9rem;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+.kpiDelta {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--green-text);
+}
+.kpiDelta[data-direction="worse"] {
+  color: var(--red-text);
+}
+.kpiAgainst {
+  font-size: 0.74rem;
+  font-weight: 500;
+  color: var(--text-faint);
+}
+
+/* ─── Cards ──────────────────────────────────────────────────────────────── */
+
+/* Column flex so a card sharing a row can push its closing note to the bottom
+   instead of leaving a gap under it. */
+.card {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 22px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+}
+.cardHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.cardTitle {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: var(--text);
+}
+.cardSub {
+  margin-top: 2px;
+  font-size: 0.82rem;
+  color: var(--text-faint);
+}
+.headRight {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.tableFoot {
+  margin-top: 12px;
+  font-size: 0.78rem;
+  color: var(--text-faint);
+}
+
+.cardLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0;
+  font: inherit;
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--accent-text);
+  background: none;
+  border: none;
+  text-decoration: none;
+  cursor: pointer;
+}
+.cardLink:hover {
+  text-decoration: underline;
+}
+.empty {
+  padding: 26px 0;
+  text-align: center;
+  font-size: 0.88rem;
+  color: var(--text-faint);
+}
+.legendNote {
+  margin-top: 12px;
+  font-size: 0.76rem;
+  color: var(--text-faint);
+}
+.staleBanner {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 10px 14px;
+  font-size: 0.86rem;
+  color: var(--amber-text);
+  background: var(--amber-bg);
+  border: 1px solid var(--amber-border);
+  border-radius: var(--r);
+}
+
+/* ─── Recent calls ───────────────────────────────────────────────────────── */
+
+.tableScroll {
+  overflow-x: auto;
+}
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.86rem;
+}
+.table th {
+  padding: 0 12px 10px;
+  text-align: left;
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: var(--text-faint);
+  white-space: nowrap;
+}
+.table td {
+  padding: 11px 12px;
+  border-top: 1px solid var(--sep);
+  color: var(--text-sub);
+  white-space: nowrap;
+}
+.table tbody tr:hover td {
+  background: var(--surface-2);
+}
+.callRow {
+  cursor: pointer;
+}
+.callRow:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: -2px;
+}
+.callCell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text);
+  font-weight: 600;
+}
+.playDot {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  padding-left: 2px;
+  color: #fff;
+  background: var(--accent);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.playDot:disabled {
+  color: var(--text-faint);
+  background: var(--surface-3);
+  cursor: default;
+}
+.outcomePill {
+  padding: 4px 11px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  border-radius: 999px;
+  color: var(--green-text);
+  background: var(--green-bg);
+  border: 1px solid var(--green-border);
+}
+.outcomePill[data-outcome="follow_up"] {
+  color: var(--amber-text);
+  background: var(--amber-bg);
+  border-color: var(--amber-border);
+}
+.outcomePill[data-outcome="at_risk"] {
+  color: var(--red-text);
+  background: var(--red-bg);
+  border-color: var(--red-border);
+}
+.outcomePill[data-outcome="nurture"],
+.outcomePill[data-outcome="pending"] {
+  color: var(--text-sub);
+  background: var(--surface-2);
+  border-color: var(--border);
+}
+.interestCell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 130px;
+}
+.interestValue {
+  min-width: 22px;
+  font-weight: 700;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+.interestNone {
+  font-size: 0.82rem;
+  color: var(--text-faint);
+}
+.interestTrack {
+  flex: 1;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--surface-3);
+  overflow: hidden;
+}
+/* Must be a block: as an inline span it would ignore the width and height and
+   the bar would render empty. */
+.interestFill {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--green);
+}
+.interestFill[data-tone="mid"] {
+  background: var(--amber);
+}
+.interestFill[data-tone="low"] {
+  background: var(--red);
+}
+.saidCell {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.saidItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.saidDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--green);
+}
+.saidDot[data-tone="bad"] {
+  background: var(--red);
+}
+.reviewBtn {
+  padding: 5px 14px;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--accent-text);
+  background: none;
+  border: 1px solid var(--suggestion-border);
+  border-radius: var(--r-sm);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.reviewBtn:hover {
+  background: var(--accent-dim);
+}
+
+/* ─── Lead mix ───────────────────────────────────────────────────────────── */
+
+.leadMix {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) minmax(0, 260px);
+  gap: 28px;
+  align-items: center;
+}
+.donut {
+  flex: none;
+  position: relative;
+}
+.donutCentre {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: 1.9rem;
+  font-weight: 800;
+  color: var(--text);
+  pointer-events: none;
+}
+.donutSlice {
+  cursor: pointer;
+  transition:
+    opacity var(--t) var(--ease),
+    stroke-width var(--t) var(--ease);
+}
+/* Fading the others reads as "this one", without the segment growing and
+   nudging its neighbours out of true. */
+.donutSlice[data-dim="true"] {
+  opacity: 0.32;
+}
+
+/* Tooltip sits on the hovered segment; the mouse is still over the segment
+   beneath it, so it must not intercept the pointer or hover would flicker. */
+.donutTip {
+  position: absolute;
+  bottom: calc(100% - 26px);
+  left: 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  width: max-content;
+  max-width: 230px;
+  padding: 9px 12px;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r);
+  box-shadow: var(--shadow);
+  pointer-events: none;
+}
+.donutTipHead {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text);
+}
+.donutTipCount {
+  font-size: 0.78rem;
+  color: var(--text-sub);
+}
+.donutTipNames {
+  font-size: 0.76rem;
+  line-height: 1.45;
+  color: var(--text-sub);
+}
+.donutTipHint {
+  margin-top: 2px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--accent-text);
+}
+.leadHeadline {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--green-text);
+}
+.leadHeadline[data-tone="mid"] {
+  color: var(--amber-text);
+}
+.leadHeadline[data-tone="low"] {
+  color: var(--red-text);
+}
+.leadText {
+  margin-top: 6px;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--text-sub);
+}
+.legend {
+  list-style: none;
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+.legendRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 3px 6px;
+  margin-left: -6px;
+  font: inherit;
+  font-size: 0.86rem;
+  text-align: left;
+  color: var(--text-sub);
+  background: none;
+  border: none;
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  transition:
+    color var(--t) var(--ease),
+    background var(--t) var(--ease);
+}
+.legendRow:hover:not(:disabled) {
+  color: var(--text);
+  background: var(--surface-2);
+}
+/* An empty slice has nothing to show, so the row stays readable but inert
+   rather than offering a filter that would land on an empty table. */
+.legendRow:disabled {
+  cursor: default;
+}
+.legendDot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  flex: none;
+}
+.legendCount {
+  margin-left: auto;
+  font-weight: 700;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+.leadAside {
+  padding-left: 28px;
+  border-left: 1px solid var(--sep);
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 14px;
+}
+.asideLabel {
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-faint);
+}
+.asideValue {
+  display: block;
+  margin-top: 4px;
+  font-size: 1.9rem;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--text);
+}
+.asideNote {
+  font-size: 0.76rem;
+  color: var(--text-faint);
+}
+.asidePair {
+  display: flex;
+  gap: 26px;
+  padding-top: 14px;
+  border-top: 1px solid var(--sep);
+}
+.asideStat {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ─── Two-up row ─────────────────────────────────────────────────────────── */
+
+/* Both cards take the height of the taller one so the row reads as one band. */
+.twoUp {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr);
+  gap: 16px;
+  align-items: stretch;
+}
+.signalRow {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.signalRow:focus-visible,
+.chartCol:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: var(--r-sm);
+}
+.signalIcon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: var(--r-sm);
+  color: var(--green);
+  background: color-mix(in srgb, var(--green) 13%, var(--surface));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--green) 22%, transparent);
+}
+.signalIcon[data-tone="bad"] {
+  color: var(--red);
+  background: color-mix(in srgb, var(--red) 13%, var(--surface));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--red) 22%, transparent);
+}
+.signalBody {
+  flex: 1;
+  min-width: 0;
+}
+.signalTop {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+.signalName {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--text);
+}
+.signalCount {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+.signalTrack {
+  height: 6px;
+  margin-top: 7px;
+  border-radius: 999px;
+  background: var(--surface-3);
+  overflow: hidden;
+}
+.signalFill {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--green);
+}
+.signalFill[data-tone="bad"] {
+  background: var(--red);
+}
+.tipBox {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: auto;
+  padding: 12px 14px;
+  background: var(--surface-2);
+  border: 1px solid var(--sep);
+  border-radius: var(--r);
+}
+.tipText {
+  flex: 1;
+  font-size: 0.84rem;
+  line-height: 1.45;
+  color: var(--text-sub);
+}
+
+/* Calls over time */
+.chart {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  height: 170px;
+  padding-top: 8px;
+}
+.chartAxis {
+  flex: none;
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: space-between;
+  height: 140px;
+  font-size: 0.7rem;
+  color: var(--text-faint);
+  font-variant-numeric: tabular-nums;
+}
+.chartScroll {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: thin;
+}
+.chartBars {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  height: 100%;
+  min-width: 100%;
+}
+.chartCol {
+  position: relative;
+  flex: 1;
+  /* Narrower than this and the date labels collide, so a long range scrolls. */
+  min-width: 58px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  height: 100%;
+  justify-content: flex-end;
+}
+.chartCount {
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--text);
+}
+.chartBar {
+  /* A span, so that the column can be a button's child. Without an explicit
+     display the height below is ignored and the bar paints as a sliver. */
+  display: block;
+  width: 100%;
+  max-width: 46px;
+  min-height: 2px;
+  border-radius: var(--r-xs) var(--r-xs) 0 0;
+  background: var(--accent);
+}
+.chartBar[data-empty="true"] {
+  background: var(--surface-3);
+}
+.chartLabel {
+  font-size: 0.7rem;
+  color: var(--text-faint);
+  text-align: center;
+  white-space: nowrap;
+}
+/* Signals tooltip: the themes behind the number.
+
+   Above the row, not below it: below, the first bar's tooltip lands squarely
+   on the second one. Pinned to the right edge and grown leftward so it stays
+   inside the card — the workspace clips horizontally. */
+.signalTip {
+  position: absolute;
+  z-index: 4;
+  bottom: calc(100% - 4px);
+  right: 0;
+  left: auto;
+  width: max-content;
+  max-width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+  padding: 9px 12px;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r);
+  box-shadow: var(--shadow);
+  pointer-events: none;
+}
+/* One theme: what it was about, and how many times it came up. The label
+   carries a few real examples as its title, so the evidence is a hover away
+   without the chart turning into a list of quotes. */
+.signalTheme {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 5px;
+  font-size: 0.74rem;
+  font-weight: 600;
+  white-space: nowrap;
+  color: var(--text-sub);
+}
+.signalThemeCount {
+  padding: 1px 7px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  border-radius: 999px;
+  color: var(--green-text);
+  background: var(--green-bg);
+  border: 1px solid var(--green-border);
+}
+.signalTheme[data-tone="bad"] .signalThemeCount {
+  color: var(--red-text);
+  background: var(--red-bg);
+  border-color: var(--red-border);
+}
+.signalTipMore {
+  font-size: 0.72rem;
+  color: var(--text-faint);
+}
+
+/* Volume tooltip: what one bar is made of. */
+/* Anchored to the plot, not the bar: the bars live in a strip that scrolls
+   horizontally and therefore clips anything rising above it. The tooltip
+   names its own bucket, so it does not need to point at one. */
+.volumeTip {
+  position: absolute;
+  z-index: 4;
+  top: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  width: max-content;
+  padding: 10px 12px;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r);
+  box-shadow: var(--shadow);
+  pointer-events: none;
+}
+.volumeTipHead {
+  font-size: 0.86rem;
+  font-weight: 800;
+  color: var(--text);
+}
+.volumeTipRange {
+  font-size: 0.74rem;
+  color: var(--text-faint);
+}
+.volumeTipList {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 6px 0 0;
+  padding: 6px 0 0;
+  list-style: none;
+  font-size: 0.78rem;
+  color: var(--text-sub);
+  border-top: 1px solid var(--sep);
+}
+.volumeTipList li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.chartFoot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: auto;
+  padding-top: 14px;
+}
+.chartFootLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 14px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  white-space: nowrap;
+  color: var(--accent-text);
+  background: none;
+  border: 1px solid var(--suggestion-border);
+  border-radius: var(--r);
+  text-decoration: none;
+  transition: background var(--t) var(--ease);
+}
+.chartFootLink:hover {
+  background: var(--accent-wash);
+}
+
+.chartNote {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: auto;
+  padding-top: 14px;
+  font-size: 0.82rem;
+  color: var(--text-sub);
+  border-top: 1px solid var(--sep);
+}
+.chartNote svg {
+  color: var(--violet);
+}
+
+/* ─── Talk habits ────────────────────────────────────────────────────────── */
+
+.habits {
+  display: block;
+}
+/* The coaching line, compressed to a glance and parked beside the title —
+   the full sentence rides along as the tooltip. */
+.habitTip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 13px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  white-space: nowrap;
+  color: var(--violet);
+  background: color-mix(in srgb, var(--violet) 10%, var(--surface));
+  border: 1px solid color-mix(in srgb, var(--violet) 25%, transparent);
+  border-radius: 999px;
+  text-decoration: none;
+  transition: background var(--t) var(--ease);
+}
+.habitTip:hover {
+  background: color-mix(in srgb, var(--violet) 18%, var(--surface));
+}
+.habitTip svg {
+  flex: none;
+}
+
+.habitGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+.habitCard {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px;
+  background: var(--surface-2);
+  border: 1px solid var(--sep);
+  border-radius: var(--r);
+}
+.habitTop {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+.habitIcon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: var(--r-sm);
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 13%, var(--surface));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 22%, transparent);
+}
+.habitIcon[data-habit="talk"] {
+  color: var(--red);
+  background: color-mix(in srgb, var(--red) 13%, var(--surface));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--red) 22%, transparent);
+}
+.habitIcon[data-habit="listening"] {
+  color: var(--green);
+  background: color-mix(in srgb, var(--green) 13%, var(--surface));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--green) 22%, transparent);
+}
+.habitIcon[data-habit="questions"] {
+  color: var(--violet);
+  background: color-mix(in srgb, var(--violet) 13%, var(--surface));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--violet) 22%, transparent);
+}
+/* The label carries a title tooltip explaining the number, so it earns the
+   help cursor and a hint of underline. */
+.habitName {
+  font-size: 0.82rem;
+  color: var(--text-sub);
+  cursor: help;
+  text-decoration: underline dotted color-mix(in srgb, var(--text-faint) 60%, transparent);
+  text-underline-offset: 3px;
+}
+.habitValueRow {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 3px 7px;
+}
+.habitValue {
+  font-size: 1.5rem;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+.habitUnit {
+  font-size: 0.8rem;
+  color: var(--text-faint);
+}
+.habitChange {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--red-text);
+}
+.habitChange[data-better="true"] {
+  color: var(--green-text);
+}
+.habitTrack {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--surface-3);
+  overflow: hidden;
+}
+.habitFill {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--amber);
+}
+.habitFill[data-met="true"] {
+  background: var(--green);
+}
+.habitGoal {
+  font-size: 0.74rem;
+  color: var(--text-faint);
+}
+.habitStatus {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: 5px;
+  padding: 3px 9px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  border-radius: 999px;
+  color: var(--amber-text);
+  background: var(--amber-bg);
+  border: 1px solid var(--amber-border);
+}
+.habitStatus[data-met="true"] {
+  color: var(--green-text);
+  background: var(--green-bg);
+  border-color: var(--green-border);
+}
+
+
+/* ─── Footer ─────────────────────────────────────────────────────────────── */
+
+.pageFooter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 4px 0 0;
+  font-size: 0.82rem;
+  color: var(--text-faint);
+}
+.pageFooter svg {
+  color: var(--accent-text);
+}
+
+/* ─── Call overview modal ────────────────────────────────────────────────── */
+
+.modalBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgb(0 0 0 / 0.6);
+  overflow-y: auto;
+}
+.modal {
+  width: min(660px, 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 22px 24px 24px;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-xl);
+  box-shadow: var(--shadow);
+}
+.modalHead {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+.modalTitle {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--text);
+}
+.modalMeta {
+  margin-top: 4px;
+  font-size: 0.84rem;
+  color: var(--text-faint);
+}
+.modalClose {
+  flex: none;
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  font-size: 1.4rem;
+  line-height: 1;
+  color: var(--text-sub);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  cursor: pointer;
+}
+.modalClose:hover {
+  color: var(--text);
+}
+.modalStats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  padding: 14px 16px;
+  background: var(--surface-2);
+  border: 1px solid var(--sep);
+  border-radius: var(--r);
+}
+.modalLabel {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.66rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-faint);
+}
+.modalLabel[data-tone="good"] {
+  color: var(--green-text);
+}
+.modalLabel[data-tone="bad"] {
+  color: var(--red-text);
+}
+.modalStatValue {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text);
+}
+.modalNote {
+  font-size: 0.84rem;
+  color: var(--text-faint);
+}
+.modalReason p {
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--text-sub);
+}
+.evidenceList {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 9px;
+}
+.evidenceList li {
+  padding: 4px 10px;
+  font-size: 0.76rem;
+  color: var(--text-sub);
+  background: var(--surface-2);
+  border: 1px solid var(--sep);
+  border-radius: 999px;
+}
+.modalQuotes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+.quoteList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.quoteList li {
+  padding: 9px 12px;
+  font-size: 0.84rem;
+  font-style: italic;
+  line-height: 1.45;
+  color: var(--text-sub);
+  background: var(--green-bg);
+  border-left: 2px solid var(--green);
+  border-radius: var(--r-sm);
+}
+.quoteList li[data-tone="bad"] {
+  background: var(--red-bg);
+  border-left-color: var(--red);
+}
+.modalCta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 11px 18px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #fff;
+  background: var(--accent);
+  border-radius: var(--r);
+  text-decoration: none;
+}
+
+@media (max-width: 620px) {
+  .modalStats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .modalQuotes {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ─── States ─────────────────────────────────────────────────────────────── */
+
+.statusPanel {
+  margin: 12vh auto 0;
+  max-width: 420px;
+  padding: 24px;
+  text-align: center;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.statusTitle {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--text);
+}
+.statusBody {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--text-sub);
+}
+
+/* ─── Responsive ─────────────────────────────────────────────────────────── */
+
+@media (max-width: 1400px) {
+  .leadMix {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+  .leadAside {
+    grid-column: 1 / -1;
+    padding-left: 0;
+    padding-top: 18px;
+    border-left: none;
+    border-top: 1px solid var(--sep);
+  }
+}
+
+@media (max-width: 1200px) {
+  .kpiRow {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .kpi:nth-child(4) {
+    border-left: none;
+  }
+  .kpi:nth-child(n + 4) {
+    border-top: 1px solid var(--sep);
+  }
+  .twoUp {
+    grid-template-columns: 1fr;
+  }
+  /* Four metric cards side by side is too tight on a narrow screen. */
+  .habitGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 900px) {
+  .kpiRow {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .habitGrid {
+    grid-template-columns: 1fr;
+  }
+  .leadMix {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+  }
+}

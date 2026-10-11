@@ -1,0 +1,246 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+
+/* ─── Design tokens — ClaraAI (HubCode) palette ───────────────── */
+:root {
+  color-scheme: light;
+
+  /* ── Immersive Blue ──────────────────────────────────────────────────────
+     Deep navy, a teal-blue accent and a pale-blue wash on white. Every value
+     below is checked against WCAG AA on the surface it sits on: accent fills
+     carry white text at 5.0:1, muted text clears 4.5:1, and the hairline blues
+     stay visible without reading as lines of their own. */
+
+  /* Brand */
+  --accent: #013bf3;
+  --accent-hover: #0a2fd0;
+  --accent-dim: rgba(1, 59, 243, 0.1);
+  --accent-text: #0130cc;
+  --accent-muted: rgba(1, 59, 243, 0.85);
+  /* Tints for borders, focus rings and glows, so no component has to hardcode
+     the brand colour in order to tint with it. */
+  --accent-wash: rgba(1, 59, 243, 0.08);
+  --accent-ring: rgba(1, 59, 243, 0.35);
+  --accent-glow: rgba(1, 59, 243, 0.3);
+  /* Wordmark glyphs. On white the weak point is the cyan tip, so it uses the
+     mark's mid-cyan rather than its brightest. */
+  --brand-grad-c: linear-gradient(45deg, #b000f8 0%, #013bf3 50%, #0193fc 100%);
+  --brand-grad-ai: linear-gradient(180deg, #0193fc 0%, #0058f8 55%, #b000f8 100%);
+  --brand-glow: none;
+
+  --teal: #0f7a52;
+  --teal-bg: rgba(15, 122, 82, 0.1);
+  --teal-text: #0e6b48;
+
+  /* Backgrounds — white cards on a pale blue wash */
+  --bg: #f7f8fa;
+  --surface: #ffffff;
+  --surface-2: #f5f6f8;
+  --surface-3: #eaebee;
+
+  --sep: #e9eaec;
+
+  /* Text — the navy from the palette, plus two muted steps that still pass AA */
+  --text: #0f2a44;
+  --text-sub: #3d5a73;
+  --text-faint: #546e86;
+
+  --footer-bg: #0f2a44;
+  --footer-text: rgba(255, 255, 255, 0.72);
+  --footer-link: #ffffff;
+
+  /* Semantic — cooled slightly so they belong to the same family as the blue */
+  --green: #0f8f63;
+  --green-bg: rgba(15, 122, 82, 0.12);
+  --green-text: #0e6b48;
+  --red: #cf3030;
+  --red-bg: rgba(192, 38, 38, 0.08);
+  --red-text: #b31f1f;
+  --amber: #bd8a00;
+  --amber-bg: rgba(189, 138, 0, 0.12);
+  --amber-text: #7d5c00;
+
+  --border: var(--sep);
+  --border-strong: #d3d5d9;
+  --border-focus: var(--accent);
+  --green-dim: var(--green-bg);
+  --green-border: rgba(15, 122, 82, 0.25);
+  --red-dim: var(--red-bg);
+  --red-border: rgba(192, 38, 38, 0.2);
+  --amber-dim: var(--amber-bg);
+  --amber-border: rgba(189, 138, 0, 0.28);
+  --indigo: var(--teal);
+  --indigo-dim: var(--teal-bg);
+  --surface-hi: #e1e3e7;
+  --bg-2: var(--surface-2);
+
+  --r-xs: 4px;
+  --r-sm: 8px;
+  --r: 10px;
+  --r-lg: 12px;
+  --r-xl: 20px;
+
+  /* Shadows tinted navy rather than grey, so cards sit on the blue wash */
+  --shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.04);
+  --shadow: 0 4px 12px rgba(16, 24, 40, 0.06);
+  --shadow-nav-active: 0 2px 6px rgba(16, 24, 40, 0.05);
+
+  --font: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", ui-monospace, monospace;
+
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  --t: 140ms;
+  --t-slow: 240ms;
+
+  /* Sidebar active pill (light: matches surface; dark: warm orange tint) */
+  --nav-active-bg: var(--surface);
+
+  /* Live-call screen (mock: LIVE pill, AI suggestion card, strategy note) */
+  --live: #0f8f63;
+  --live-bg: rgba(15, 122, 82, 0.12);
+  --violet: #5b35c7;
+  --violet-bg: rgba(91, 53, 199, 0.1);
+  --suggestion-grad-a: rgba(1, 59, 243, 0.14);
+  --suggestion-grad-b: rgba(1, 59, 243, 0.05);
+  --suggestion-border: rgba(1, 59, 243, 0.35);
+}
+
+/* ─── Dark theme — cool near-black charcoal + orange (per the product mock) ─ */
+html[data-theme="dark"] {
+  color-scheme: dark;
+
+  --accent: #0169fc;
+  --accent-hover: #0158e0;
+  --accent-dim: rgba(1, 105, 252, 0.14);
+  --accent-text: #5ea0ff;
+  --accent-muted: rgba(1, 105, 252, 0.85);
+  /* Same tint roles as light, in this theme's own accent. */
+  --accent-wash: rgba(1, 105, 252, 0.08);
+  --accent-ring: rgba(1, 105, 252, 0.35);
+  --accent-glow: rgba(1, 105, 252, 0.35);
+  /* On near-black the deep blues sink to ~2.3:1, so every stop is lifted to
+     clear 5.5:1, and the glyphs get the logo's own soft glow. */
+  --brand-grad-c: linear-gradient(45deg, #e066ff 0%, #5ea0ff 50%, #22f0ff 100%);
+  --brand-grad-ai: linear-gradient(180deg, #22f0ff 0%, #5ea0ff 55%, #e066ff 100%);
+  --brand-glow: drop-shadow(0 0 6px rgba(94, 160, 255, 0.45));
+
+  /* Content wells sit darker than the cards on top of them */
+  --bg: #0b0d11;
+  --surface: #13161b;
+  --surface-2: #1a1e24;
+  --surface-3: #232830;
+  --surface-hi: #2b313b;
+  --bg-2: var(--surface-2);
+
+  --sep: rgba(148, 163, 184, 0.12);
+  --text: #eef1f6;
+  --text-sub: rgba(226, 232, 240, 0.72);
+  --text-faint: rgba(226, 232, 240, 0.45);
+
+  --border: rgba(148, 163, 184, 0.14);
+  --border-strong: rgba(148, 163, 184, 0.24);
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.45);
+  --shadow: 0 6px 22px rgba(0, 0, 0, 0.55);
+  --shadow-nav-active: 0 2px 14px rgba(0, 0, 0, 0.5);
+
+  --nav-active-bg: rgba(1, 105, 252, 0.16);
+
+  --teal: #34d399;
+  --teal-bg: rgba(52, 211, 153, 0.14);
+  --teal-text: #6ee7b7;
+  --green: #22c55e;
+  --green-bg: rgba(34, 197, 94, 0.14);
+  --green-text: #4ade80;
+  --red: #ef4444;
+  --red-bg: rgba(239, 68, 68, 0.14);
+  --red-text: #f87171;
+  --amber: #f59e0b;
+  --amber-bg: rgba(245, 158, 11, 0.14);
+  --amber-text: #fbbf24;
+  --green-border: rgba(34, 197, 94, 0.3);
+  --red-border: rgba(239, 68, 68, 0.28);
+  --amber-border: rgba(245, 158, 11, 0.28);
+
+  --footer-bg: #07090c;
+  --footer-text: rgba(255, 255, 255, 0.68);
+  --footer-link: rgba(255, 255, 255, 0.92);
+
+  --live: #22c55e;
+  --live-bg: rgba(34, 197, 94, 0.16);
+  --violet: #a78bfa;
+  --violet-bg: rgba(139, 92, 246, 0.16);
+  --suggestion-grad-a: rgba(1, 105, 252, 0.3);
+  --suggestion-grad-b: rgba(1, 105, 252, 0.1);
+  --suggestion-border: rgba(1, 105, 252, 0.5);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Match app shell so no seam / “hairline” at the top of the viewport (dvh rounding vs body bg) */
+  background: var(--surface);
+  height: 100%;
+  overscroll-behavior: contain;
+}
+
+body {
+  font-family: var(--font);
+  background: var(--surface);
+  color: var(--text);
+  line-height: 1.55;
+  height: 100%;
+  min-height: 100%;
+  overflow: hidden;
+  overscroll-behavior: contain;
+}
+
+#root {
+  height: 100%;
+  min-height: 100%;
+  background: var(--surface);
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #c9c4be;
+  border-radius: 99px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #9c9590;
+}
+
+/* Dark paints the deepest tone edge-to-edge — the shell owns the layout tint. */
+html[data-theme="dark"],
+html[data-theme="dark"] body,
+html[data-theme="dark"] #root {
+  background: var(--bg);
+}
+
+html[data-theme="dark"] ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.18);
+}
+html[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: var(--r-xs);
+}

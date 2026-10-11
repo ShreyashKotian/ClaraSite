@@ -1,0 +1,1400 @@
+/* Call Analysis page — tokens from index.css, 16px rhythm like the live page */
+
+/* flex:none because the workspace is itself a column flex container — without
+   it this page shrinks to the viewport and its bottom padding is swallowed,
+   leaving the last card flush against the bottom edge. */
+.page {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 100%;
+  padding: 18px 24px 22px;
+  background: var(--bg);
+}
+/* Column flex items shrink below their content by default, which lets a tall
+   card overlap the one after it. Every band on this page keeps its own height. */
+.page > * {
+  flex: 0 0 auto;
+}
+
+/* ─── Header ─────────────────────────────────────────────────────────────── */
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  color: var(--text-faint);
+}
+.breadcrumb a {
+  color: var(--text-faint);
+  text-decoration: none;
+}
+.breadcrumb a:hover {
+  color: var(--text);
+}
+.breadcrumbCurrent {
+  color: var(--text-sub);
+  font-weight: 600;
+}
+
+.pageHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.titleRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.pageTitle {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text);
+}
+.statusPill {
+  padding: 4px 12px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--green-text);
+  background: var(--green-bg);
+  border: 1px solid var(--green-border);
+  border-radius: 999px;
+}
+.headerActions {
+  display: flex;
+  gap: 8px;
+}
+
+/* One column per chip, each at least as wide as its own text so nothing is
+   clipped, sharing the leftover width evenly across the page. */
+.metaStrip {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(max-content, 1fr);
+  gap: 12px;
+}
+.metaChip {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  padding: 12px 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+}
+.metaIcon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 13%, var(--surface));
+  border-radius: var(--r-sm);  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 22%, transparent);
+}
+.metaChip > div {
+  min-width: 0;
+}
+.metaLabel {
+  display: block;
+  font-size: 0.66rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--text-faint);
+}
+/* Only an unusually long value is ever trimmed, and hovering shows it in full. */
+.metaValue {
+  display: block;
+  max-width: 34ch;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.attributionBanner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  font-size: 0.88rem;
+  color: var(--amber-text);
+  background: var(--amber-bg);
+  border: 1px solid var(--amber-border);
+  border-radius: var(--r);
+}
+
+/* ─── Hero ───────────────────────────────────────────────────────────────── */
+
+/* The verdict and how the customer sounded, read together. Same three columns
+   as the row below, with the hero spanning two, so the edges line up exactly
+   at any width instead of approximately. */
+.heroRow {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  align-items: stretch;
+}
+
+.hero {
+  grid-column: span 2;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 32px;
+  align-items: center;
+  padding: 26px 28px;
+  border-radius: var(--r-xl);
+  border: 1px solid var(--green-border);
+  background:
+    radial-gradient(120% 140% at 0% 0%, var(--green-bg), transparent 62%),
+    var(--surface);
+}
+.hero[data-tone="mid"] {
+  border-color: var(--amber-border);
+  background:
+    radial-gradient(120% 140% at 0% 0%, var(--amber-bg), transparent 62%),
+    var(--surface);
+}
+.hero[data-tone="low"] {
+  border-color: var(--red-border);
+  background:
+    radial-gradient(120% 140% at 0% 0%, var(--red-bg), transparent 62%),
+    var(--surface);
+}
+.heroBody {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+}
+.heroHeadline {
+  max-width: 66ch;
+  font-size: 0.97rem;
+  font-weight: 700;
+  line-height: 1.5;
+  color: var(--text);
+}
+.heroWhy {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-faint);
+}
+
+.checklist {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 28px;
+}
+.checkItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9rem;
+  color: var(--text-sub);
+  line-height: 1.35;
+}
+.checkMark {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  color: var(--green);
+  background: color-mix(in srgb, var(--green) 15%, var(--surface));
+}
+.checkItem[data-tone="warn"] .checkMark {
+  color: var(--amber);
+  background: color-mix(in srgb, var(--amber) 15%, var(--surface));
+}
+
+/* A reason with evidence behind it. The chevron is the only thing saying so,
+   so it appears on every such line rather than only on hover — a hover cue
+   that needs a hover to be found is not a cue. */
+.checkItem[data-detail="true"] {
+  position: relative;
+  cursor: default;
+}
+.checkChevron {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  color: var(--text-faint);
+  opacity: 0.65;
+  transition: opacity var(--t) var(--ease);
+}
+.checkItem[data-detail="true"]:hover .checkChevron,
+.checkItem[data-detail="true"]:focus-visible .checkChevron {
+  opacity: 1;
+}
+.checkItem[data-detail="true"]:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: var(--r-sm);
+}
+
+/* Opens upward from the line. The checklist is the last thing in the hero, so
+   a card below it would hang off the card's own edge. Pointer events stay off
+   so moving onto it cannot count as leaving the line underneath. */
+.checkCard {
+  position: absolute;
+  z-index: 5;
+  bottom: calc(100% + 8px);
+  left: 0;
+  width: max-content;
+  max-width: min(340px, 80vw);
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  padding: 11px 13px;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r);
+  box-shadow: var(--shadow);
+  pointer-events: none;
+  text-align: left;
+}
+.checkCardHead {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--green-text);
+}
+.checkCard[data-tone="warn"] .checkCardHead {
+  color: var(--amber-text);
+}
+.checkCardQuotes {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.checkCardQuotes li {
+  padding-left: 9px;
+  border-left: 2px solid var(--green);
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--text);
+}
+.checkCard[data-tone="warn"] .checkCardQuotes li {
+  border-left-color: var(--amber);
+}
+/* The checklist is a two-column grid filled row by row, so every even line
+   sits in the right-hand column. Its card grows leftward instead — rightward
+   it would run past the page edge, which the workspace clips. */
+.checkItem:nth-child(even) .checkCard {
+  left: auto;
+  right: 0;
+}
+.checkCardFoot {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-faint);
+}
+
+/* ─── Score ring ─────────────────────────────────────────────────────────── */
+
+.ring {
+  position: relative;
+  flex: none;
+  display: grid;
+  place-items: center;
+}
+.ringTrack {
+  stroke: var(--surface-3);
+}
+.ringFill {
+  stroke: var(--green);
+}
+.ring[data-tone="mid"] .ringFill {
+  stroke: var(--amber);
+}
+.ring[data-tone="low"] .ringFill {
+  stroke: var(--red);
+}
+.ringCenter {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+}
+.ringBadge {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--green-text);
+}
+.ring[data-tone="mid"] .ringBadge {
+  color: var(--amber-text);
+}
+.ring[data-tone="low"] .ringBadge {
+  color: var(--red-text);
+}
+.ringValue {
+  font-size: 2.6rem;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+.ringValue small {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+.ringCaption {
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--text-faint);
+}
+
+/* ─── Cards ──────────────────────────────────────────────────────────────── */
+
+.cardRow {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 190px;
+  padding: 20px 22px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+}
+.card[data-accent="warn"] {
+  border-color: var(--amber-border);
+  background: linear-gradient(180deg, var(--amber-bg), transparent 70%), var(--surface);
+}
+.card[data-accent="action"] {
+  border-color: var(--suggestion-border);
+  background: linear-gradient(180deg, var(--accent-dim), transparent 70%), var(--surface);
+}
+.cardTitle {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--text-faint);
+}
+.card[data-accent="warn"] .cardTitle {
+  color: var(--amber-text);
+}
+.card[data-accent="action"] .cardTitle {
+  color: var(--accent-text);
+}
+.cardHeadline {
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--text);
+}
+.cardHeadlineDone {
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--text-faint);
+  text-decoration: line-through;
+}
+.cardText {
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--text-sub);
+}
+.cardQuote {
+  font-size: 0.84rem;
+  font-style: italic;
+  color: var(--text-faint);
+}
+.cardFoot {
+  margin-top: auto;
+  padding-top: 4px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--amber-text);
+}
+.cardLink {
+  margin-top: auto;
+  padding: 0;
+  align-self: flex-start;
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--accent-text);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.cardLink:hover {
+  text-decoration: underline;
+}
+
+/* Sentiment */
+.sentimentTop {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.sentimentScore {
+  display: block;
+  margin-top: 1px;
+  font-size: 1.5rem;
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+.sentimentScore small {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-faint);
+}
+.sentimentWhen {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--text-faint);
+}
+
+/* Where they started, where they finished, and the distance between */
+.shiftRow {
+  display: flex;
+  gap: 8px;
+}
+.shiftItem {
+  flex: 1;
+  padding: 8px 10px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--text);
+  background: var(--surface-2);
+  border: 1px solid var(--sep);
+  border-radius: var(--r-sm);
+  font-variant-numeric: tabular-nums;
+}
+.shiftItem[data-direction="up"] {
+  color: var(--green-text);
+}
+.shiftItem[data-direction="down"] {
+  color: var(--red-text);
+}
+.shiftLabel {
+  display: block;
+  margin-bottom: 2px;
+  font-size: 0.64rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-faint);
+}
+.sentimentWord {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--green-text);
+}
+.sentimentWord[data-tone="mid"] {
+  color: var(--amber-text);
+}
+.sentimentWord[data-tone="low"] {
+  color: var(--red-text);
+}
+
+/* Sentiment gauge: score as an arc, mood as a face drawn in the same colour. */
+.gauge {
+  flex: none;
+  display: block;
+}
+.gaugeTrack {
+  stroke: var(--surface-3);
+}
+.gaugeFill,
+.gaugeMouth {
+  stroke: var(--green);
+}
+.gaugeFace {
+  fill: var(--green);
+}
+.gauge[data-tone="mid"] .gaugeFill,
+.gauge[data-tone="mid"] .gaugeMouth {
+  stroke: var(--amber);
+}
+.gauge[data-tone="mid"] .gaugeFace {
+  fill: var(--amber);
+}
+.gauge[data-tone="low"] .gaugeFill,
+.gauge[data-tone="low"] .gaugeMouth {
+  stroke: var(--red);
+}
+.gauge[data-tone="low"] .gaugeFace {
+  fill: var(--red);
+}
+
+/* Next action */
+.actionFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 4px;
+}
+.dueChip,
+.doneChip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+.dueChip {
+  color: var(--accent-text);
+}
+.doneChip {
+  color: var(--green-text);
+}
+
+/* Key moments — a timeline: dots joined by a hairline, each moment stacked so
+   it stays readable in a third-width card. */
+/* Capped so a call with many moments can't stretch the whole row — the rest
+   scroll, and the full picture is a click away in the timeline. */
+.momentList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  max-height: 196px;
+  overflow-y: auto;
+  padding: 2px 8px 2px 2px;
+  scrollbar-width: thin;
+}
+.moment {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+.moment:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 15px;
+  bottom: -15px;
+  width: 1px;
+  background: var(--sep);
+}
+.momentDot {
+  flex: none;
+  width: 9px;
+  height: 9px;
+  margin-top: 5px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 0 3px var(--green-bg);
+}
+.momentBody {
+  min-width: 0;
+}
+/* Inline with the label so each moment costs one line instead of two. */
+.momentTime {
+  margin-right: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--accent-text);
+}
+.momentLabel {
+  font-size: 0.88rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--text);
+}
+.momentQuote {
+  margin-top: 2px;
+  font-size: 0.81rem;
+  font-style: italic;
+  line-height: 1.4;
+  color: var(--text-faint);
+}
+
+/* Performance — the verdict on the left, then what went well and what to work
+   on as their own columns. */
+.performance {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr) minmax(0, 1fr);
+  gap: 32px;
+  align-items: start;
+}
+.performanceMain {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  min-width: 0;
+}
+.performanceBadge {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 50px;
+  height: 50px;
+  color: var(--violet);
+  background: color-mix(in srgb, var(--violet) 13%, var(--surface));
+  border-radius: 50%;  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--violet) 22%, transparent);
+}
+/* The star reads better solid at this size than as an outline. */
+.performanceBadge svg path {
+  fill: currentColor;
+}
+.performanceTitle {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--violet);
+}
+.performanceText {
+  margin-top: 6px;
+  font-size: 0.92rem;
+  /* 500, not 600: at this length a bolder weight makes the block look crowded
+     next to the lighter strengths/opportunities columns beside it. */
+  font-weight: 500;
+  line-height: 1.45;
+  color: var(--text);
+}
+/* Measured stats as pills. The dot is green inside the healthy range for that
+   number and amber outside it; hovering a pill explains the range. */
+.statPills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+.statPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 13px;
+  font-size: 0.78rem;
+  color: var(--text-sub);
+  background: var(--surface-2);
+  border: 1px solid var(--sep);
+  border-radius: 999px;
+  cursor: default;
+}
+.statPill strong {
+  font-weight: 700;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+.statDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--green);
+}
+.statPill[data-tone="warn"] .statDot {
+  background: var(--amber);
+}
+.performanceLabel {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--green-text);
+}
+.performanceLabel[data-tone="warn"] {
+  color: var(--amber-text);
+}
+.performanceList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.performanceList li {
+  font-size: 0.86rem;
+  line-height: 1.45;
+  color: var(--text-sub);
+}
+.performanceEmpty {
+  color: var(--text-faint);
+  font-style: italic;
+}
+
+/* ─── Detail tabs ────────────────────────────────────────────────────────── */
+
+.tabsCard {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+}
+.tabBar {
+  display: flex;
+  gap: 2px;
+  padding: 6px 6px 0;
+  border-bottom: 1px solid var(--sep);
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+/* Grow to share the bar evenly, but never shrink below their own label — on a
+   narrow screen the bar scrolls instead of cramming them. */
+.tab,
+.tabOn {
+  flex: 1 0 auto;
+  min-width: max-content;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 11px 16px;
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+  color: var(--text-sub);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+}
+.tab:hover {
+  color: var(--text);
+}
+.tabOn {
+  color: var(--accent-text);
+  border-bottom-color: var(--accent);
+}
+.tabCount {
+  padding: 1px 8px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-faint);
+  background: var(--surface-2);
+  border-radius: 999px;
+}
+.tabOn .tabCount {
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 13%, var(--surface));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 22%, transparent);
+}
+.tabPanel {
+  padding: 14px 20px 20px;
+}
+
+/* Overview: an index of the other tabs */
+.overviewList {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.overviewRow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  padding: 14px 12px;
+  font: inherit;
+  text-align: left;
+  background: none;
+  border: none;
+  border-radius: var(--r);
+  cursor: pointer;
+}
+.overviewRow + .overviewRow {
+  box-shadow: 0 -1px 0 var(--sep);
+}
+.overviewRow:hover {
+  background: var(--surface-2);
+}
+.overviewIcon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 13%, var(--surface));
+  border-radius: var(--r-sm);  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 22%, transparent);
+}
+.overviewText {
+  flex: 1;
+  min-width: 0;
+}
+.overviewTitle {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text);
+}
+.overviewCount {
+  color: var(--accent-text);
+}
+.overviewSub {
+  display: block;
+  margin-top: 2px;
+  font-size: 0.8rem;
+  color: var(--text-faint);
+}
+.overviewChevron {
+  flex: none;
+  display: grid;
+  place-items: center;
+  color: var(--text-faint);
+}
+.overviewPlay {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px 6px 10px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-sub);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-variant-numeric: tabular-nums;
+}
+.tabSubtitle {
+  margin-bottom: 4px;
+  font-size: 0.8rem;
+  color: var(--text-faint);
+}
+.panelEmpty {
+  padding-top: 12px;
+  font-size: 0.88rem;
+  color: var(--text-faint);
+}
+
+.exchange {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--sep);
+}
+.exchange:last-child {
+  border-bottom: none;
+}
+/* Numbered so the timings can be talked about — "you took twelve seconds on
+   four" — rather than only read down the column. */
+.exchangeIndex {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--text-sub);
+  background: var(--surface-2);
+  border-radius: 50%;
+}
+.exchangeBody {
+  flex: 1;
+  min-width: 0;
+}
+.exchangeQuestion {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text);
+}
+.exchangeAnswer {
+  margin-top: 4px;
+  font-size: 0.86rem;
+  color: var(--text-sub);
+}
+/* How long the customer waited. Green up to the goal, amber past it — the
+   same threshold the call's average response time is judged against. */
+.exchangeTiming {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  border-radius: 999px;
+  color: var(--green-text);
+  background: var(--green-bg);
+  border: 1px solid var(--green-border);
+}
+.exchangeTiming[data-slow="true"] {
+  color: var(--amber-text);
+  background: var(--amber-bg);
+  border-color: var(--amber-border);
+}
+
+.objection {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--sep);
+}
+.objection:last-child {
+  border-bottom: none;
+}
+.objectionTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.objectionText {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text);
+}
+.severity {
+  padding: 2px 10px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  border-radius: 99px;
+  color: var(--amber-text);
+  background: var(--amber-bg);
+}
+.severity[data-severity="high"] {
+  color: var(--red-text);
+  background: var(--red-bg);
+}
+.severity[data-severity="low"] {
+  color: var(--text-sub);
+  background: var(--surface-2);
+}
+.objectionQuote {
+  margin-top: 4px;
+  font-size: 0.84rem;
+  font-style: italic;
+  color: var(--text-faint);
+}
+
+/* ─── Phase list (conversation timeline) ─────────────────────────────────── */
+
+.callPhaseList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 12px;
+}
+.callPhaseCard {
+  padding: 14px 16px;
+  background: var(--surface-2);
+  border: 1px solid var(--sep);
+  border-radius: var(--r);
+}
+.callPhaseHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+.callPhaseLabel {
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: var(--text);
+}
+.callPhaseScore {
+  font-size: 0.86rem;
+  font-weight: 800;
+  color: var(--accent-text);
+  font-variant-numeric: tabular-nums;
+}
+.callPhaseTrack {
+  height: 6px;
+  margin-bottom: 8px;
+  background: var(--surface-3);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.callPhaseFill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 999px;
+}
+.callPhaseNote {
+  font-size: 0.84rem;
+  line-height: 1.5;
+  color: var(--text-sub);
+}
+.callPhaseNote + .callPhaseNote {
+  margin-top: 4px;
+  color: var(--text-faint);
+}
+
+/* ─── Transcript (flat: it already sits inside a section card) ───────────── */
+
+.transcriptPanel {
+  display: block;
+  padding-top: 12px;
+}
+.transcriptSearchInput {
+  width: 100%;
+  margin-bottom: 12px;
+  padding: 9px 14px;
+  font: inherit;
+  font-size: 0.875rem;
+  color: var(--text);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  outline: none;
+}
+.transcriptSearchInput:focus {
+  border-color: var(--border-focus);
+}
+.transcriptSearchInput::placeholder {
+  color: var(--text-faint);
+}
+.transcriptFeed {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-height: 520px;
+  overflow-y: auto;
+}
+.transcriptEmpty {
+  margin: 20px 0;
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--text-faint);
+}
+.transcriptRow {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 7px 6px;
+  border-radius: var(--r-sm);
+}
+.transcriptAvatar {
+  flex: none;
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-sub);
+  background: var(--surface-3);
+  border: 1px solid var(--sep);
+  border-radius: 999px;
+}
+.transcriptBody {
+  flex: 1;
+  min-width: 0;
+}
+.transcriptSpeakerLine {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 2px;
+}
+.transcriptSpeaker {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--text);
+}
+.transcriptTime {
+  font-size: 0.78rem;
+  color: var(--text-faint);
+  font-variant-numeric: tabular-nums;
+}
+.transcriptText {
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--text);
+}
+.transcriptNotes {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--sep);
+}
+.transcriptNotesTitle {
+  margin-bottom: 10px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+.transcriptNotesList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.transcriptNoteItem {
+  padding: 10px 12px;
+  background: var(--surface-2);
+  border: 1px solid var(--sep);
+  border-radius: var(--r-sm);
+}
+.transcriptNoteTrigger {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-faint);
+}
+.transcriptNoteItem p {
+  font-size: 0.84rem;
+  line-height: 1.45;
+  color: var(--text-sub);
+}
+
+/* ─── Recording player ───────────────────────────────────────────────────── */
+
+.player {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 9px 14px 9px 10px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+}
+.playButton {
+  flex: none;
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  padding-left: 2px;
+  color: #fff;
+  background: var(--accent);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.playButton:disabled {
+  opacity: 0.5;
+}
+.pauseGlyph {
+  width: 11px;
+  height: 13px;
+  border-left: 4px solid currentColor;
+  border-right: 4px solid currentColor;
+}
+
+/* The real shape of the call: one bar per slice of audio, filled up to the
+   playhead. Click or arrow-key anywhere on it to seek. */
+.waveform {
+  flex: 1;
+  min-width: 0;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  cursor: pointer;
+  outline: none;
+}
+.waveform:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 4px;
+  border-radius: var(--r-xs);
+}
+.waveBar {
+  flex: 1;
+  min-width: 2px;
+  border-radius: 999px;
+  background: var(--surface-3);
+}
+.waveBar[data-played="true"] {
+  background: var(--accent);
+}
+.playerTime {
+  flex: none;
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--text-sub);
+  font-variant-numeric: tabular-nums;
+}
+.listenModes {
+  flex: none;
+  display: flex;
+  gap: 4px;
+}
+.listenMode,
+.listenModeOn {
+  padding: 5px 10px;
+  font: inherit;
+  font-size: 0.74rem;
+  font-weight: 600;
+  border-radius: 99px;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: none;
+  color: var(--text-sub);
+}
+.listenModeOn {
+  color: var(--accent-text);
+  border-color: var(--suggestion-border);
+  background: var(--accent-dim);
+}
+.playerUnavailable {
+  font-size: 0.84rem;
+  color: var(--text-faint);
+}
+
+/* ─── Tip footer, statuses, buttons ──────────────────────────────────────── */
+
+.tipFooter {
+  display: flex;
+  gap: 12px;
+  padding: 16px 18px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--text);
+  background: var(--violet-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+}
+.tipIcon {
+  flex: none;
+  font-size: 1.05rem;
+}
+.tipFootnote {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.78rem;
+  color: var(--text-faint);
+}
+
+.statusPanel {
+  margin: 12vh auto 0;
+  max-width: 420px;
+  padding: 24px;
+  text-align: center;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.statusTitle {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--text);
+}
+
+.primaryButton {
+  align-self: center;
+  padding: 10px 18px;
+  font: inherit;
+  font-weight: 700;
+  color: #fff;
+  background: var(--accent);
+  border: none;
+  border-radius: var(--r);
+  cursor: pointer;
+}
+.primaryButton:disabled {
+  opacity: 0.6;
+}
+.secondaryButton {
+  padding: 8px 14px;
+  font: inherit;
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--text);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.secondaryButton:hover {
+  border-color: var(--border-strong);
+}
+.secondaryButton:disabled {
+  opacity: 0.6;
+}
+
+/* ─── Responsive ─────────────────────────────────────────────────────────── */
+
+@media (max-width: 1240px) {
+  .heroRow {
+    grid-template-columns: 1fr;
+  }
+  .hero {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 1240px) {
+  .cardRow {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 1100px) {
+  /* Content-sized columns stop fitting — wrap the chips instead of overflowing. */
+  .metaStrip {
+    grid-auto-flow: row;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  }
+  .cardRow,
+  .performance {
+    grid-template-columns: 1fr;
+  }
+  .performance {
+    gap: 22px;
+  }
+}
+
+
+
+@media (max-width: 860px) {
+  .hero {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+  }
+  .heroBody {
+    align-items: center;
+  }
+  .checklist {
+    grid-template-columns: 1fr;
+    text-align: left;
+  }
+  /* One column, so there is no right-hand column to flip away from. */
+  .checkItem:nth-child(even) .checkCard {
+    left: 0;
+    right: auto;
+  }
+  .pageHeader {
+    flex-direction: column;
+  }
+  .player {
+    flex-wrap: wrap;
+  }
+}

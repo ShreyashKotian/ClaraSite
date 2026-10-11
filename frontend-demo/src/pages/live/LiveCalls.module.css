@@ -1,0 +1,951 @@
+/* Live Call screen — all colors/radii/motion come from the tokens in index.css */
+
+/* The screen fills the workspace: the transcript grows to absorb spare
+   height, only its feed (and the rail, if long) scroll — never the page. */
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: 100%;
+  padding: 20px 24px;
+  overflow: hidden;
+  overscroll-behavior: contain;
+  background: var(--bg);
+}
+
+/* ─── Banners ────────────────────────────────────────────────────────────── */
+
+.errorBanner,
+.warningBanner {
+  padding: 10px 14px;
+  border-radius: var(--r);
+  font-size: 0.9rem;
+  border: 1px solid;
+}
+.errorBanner {
+  background: var(--red-bg);
+  border-color: var(--red-border);
+  color: var(--red-text);
+}
+.warningBanner {
+  background: var(--amber-bg);
+  border-color: var(--amber-border);
+  color: var(--amber-text);
+}
+
+/* ─── Session setup (top card of the right rail while idle) ─────────────── */
+
+.setupCard {
+  flex: none;
+  padding: 16px;
+  background: var(--surface);
+  border: 1px solid var(--suggestion-border);
+  border-radius: var(--r-lg);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.fieldLabel {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-faint);
+  margin-top: 6px;
+}
+.input,
+.textarea {
+  width: 100%;
+  padding: 10px 12px;
+  font: inherit;
+  color: var(--text);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+}
+.input:focus,
+.textarea:focus {
+  border-color: var(--border-focus);
+  outline: none;
+}
+
+.meterTrack {
+  flex: 1;
+  height: 8px;
+  border-radius: 99px;
+  background: var(--surface-3);
+  overflow: hidden;
+}
+.meterFill {
+  height: 100%;
+  border-radius: 99px;
+  background: linear-gradient(90deg, var(--live), var(--accent));
+  transition: width 90ms linear;
+}
+.meterGood {
+  color: var(--green-text);
+  font-weight: 700;
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+.meterWaiting {
+  color: var(--text-faint);
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+.meterBad {
+  color: var(--red-text);
+  font-size: 0.82rem;
+}
+
+.checkRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.9rem;
+  color: var(--text);
+  cursor: pointer;
+  margin-top: 6px;
+}
+.checkRow input {
+  margin-top: 3px;
+  accent-color: var(--accent);
+}
+.checkRow em {
+  color: var(--text-sub);
+  font-style: normal;
+}
+
+.micOnlyWarning {
+  padding: 10px 12px;
+  font-size: 0.85rem;
+  background: var(--amber-bg);
+  border: 1px solid var(--amber-border);
+  border-radius: var(--r-sm);
+  color: var(--amber-text);
+}
+.headphoneTip {
+  font-size: 0.82rem;
+  color: var(--text-sub);
+}
+
+.startButton {
+  margin-top: 8px;
+  padding: 12px 18px;
+  font: inherit;
+  font-weight: 700;
+  color: #fff;
+  background: var(--accent);
+  border: none;
+  border-radius: var(--r);
+  cursor: pointer;
+  transition: background var(--t) var(--ease);
+}
+.startButton:hover:not(:disabled) {
+  background: var(--accent-hover);
+}
+.startButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.secondaryButton {
+  padding: 9px 14px;
+  font: inherit;
+  font-weight: 600;
+  color: var(--text);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  cursor: pointer;
+}
+.secondaryButton:disabled {
+  opacity: 0.6;
+}
+/* ─── Live header ────────────────────────────────────────────────────────── */
+
+.callHeader {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 58px;
+  padding: 10px 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+}
+.callHeaderLeft,
+.callHeaderRight {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.statusDotLive,
+.statusDotIdle {
+  flex: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+.statusDotLive {
+  background: var(--live);
+  box-shadow: 0 0 8px var(--live);
+}
+.statusDotIdle {
+  background: var(--text-faint);
+}
+.headerTitle {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+.headerSub {
+  display: block;
+  margin-top: 2px;
+  font-size: 0.8rem;
+  color: var(--text-sub);
+}
+
+.waveform {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 22px;
+}
+.waveform i {
+  width: 3px;
+  border-radius: 2px;
+  background: var(--live);
+  animation: eqBounce 1.1s ease-in-out infinite;
+}
+.waveDot {
+  opacity: 0.35;
+  animation: none !important;
+}
+.livePillBig {
+  padding: 6px 14px;
+  font-weight: 800;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  color: var(--live);
+  background: var(--live-bg);
+  border-radius: 99px;
+}
+.readyPill {
+  padding: 6px 14px;
+  font-weight: 700;
+  font-size: 0.82rem;
+  color: var(--text-sub);
+  background: var(--surface-2);
+  border-radius: 99px;
+}
+@keyframes eqBounce {
+  0%, 100% { transform: scaleY(0.5); }
+  50% { transform: scaleY(1); }
+}
+
+/* ─── Live layout ────────────────────────────────────────────────────────── */
+
+.liveLayout {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 16px;
+}
+.centerColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+  min-height: 0;
+}
+
+/* ─── Transcript ─────────────────────────────────────────────────────────── */
+
+.transcriptPanel {
+  flex: 1;
+  min-height: 160px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  display: flex;
+  flex-direction: column;
+}
+.panelHeader {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--sep);
+}
+.panelTitle {
+  font-size: 0.95rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text);
+}
+.panelControls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.controlPill {
+  padding: 6px 12px;
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-sub);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 99px;
+  cursor: pointer;
+  transition: color var(--t) var(--ease), border-color var(--t) var(--ease);
+}
+.controlPill:hover:not(:disabled) {
+  color: var(--text);
+  border-color: var(--border-strong);
+}
+.controlPill:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+.controlPillOn {
+  color: var(--accent-text);
+  border-color: var(--suggestion-border);
+  background: var(--accent-dim);
+}
+
+.transcriptFeed {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.transcriptEmpty {
+  color: var(--text-faint);
+  font-size: 0.9rem;
+}
+.turnCustomer,
+.turnRep {
+  display: flex;
+  gap: 10px;
+}
+.avatarCustomer,
+.avatarRep {
+  flex: none;
+  width: 28px;
+  height: 28px;
+  margin-top: 1px; /* optical align with the name row */
+  display: grid;
+  place-items: center;
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #fff;
+  border-radius: 50%;
+}
+.avatarCustomer {
+  background: var(--accent);
+}
+.avatarRep {
+  background: var(--violet);
+}
+.turnBody {
+  min-width: 0;
+}
+.turnMeta {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+  font-size: 0.78rem;
+  color: var(--text-faint);
+}
+.turnMeta strong {
+  color: var(--text-sub);
+  font-weight: 700;
+}
+.turnText {
+  margin-top: 2px;
+  color: var(--text);
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+.partialText {
+  color: var(--text-faint);
+  font-style: italic;
+  font-size: 0.9rem;
+}
+
+/* ─── Suggestion card ────────────────────────────────────────────────────── */
+
+.suggestionArea {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  /* Pinned to the panel's bottom while the feed is short; once turns fill
+     the space it flows naturally after the last one. */
+  margin-top: auto;
+}
+.suggestionCard {
+  padding: 16px;
+  border-radius: var(--r-lg);
+  border: 1px solid var(--suggestion-border);
+  background: linear-gradient(135deg, var(--suggestion-grad-a), var(--suggestion-grad-b));
+}
+.suggestionHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.suggestionLabel {
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent-text);
+}
+.confidencePill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text);
+  background: rgba(0, 0, 0, 0.35);
+  border-radius: 99px;
+  white-space: nowrap;
+}
+.signalBars {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 12px;
+}
+.signalBars i {
+  width: 3px;
+  border-radius: 1px;
+  background: var(--live);
+}
+.signalBars i:nth-child(1) { height: 30%; }
+.signalBars i:nth-child(2) { height: 55%; }
+.signalBars i:nth-child(3) { height: 78%; }
+.signalBars i:nth-child(4) { height: 100%; }
+.signalBars[data-tone="mid"] i:nth-child(4),
+.signalBars[data-tone="low"] i:nth-child(4),
+.signalBars[data-tone="low"] i:nth-child(3) {
+  background: var(--text-faint);
+}
+.signalBars[data-tone="mid"] i,
+.signalBars[data-tone="low"] i {
+  background: var(--amber);
+}
+.signalBars[data-tone="low"] i:nth-child(-n + 2) {
+  background: var(--red);
+}
+
+.chipRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+.sourceChip {
+  padding: 4px 10px;
+  font-size: 0.74rem;
+  color: var(--text-sub);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 99px;
+  max-width: 240px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.suggestionText {
+  margin-top: 10px;
+  font-size: 1.02rem;
+  line-height: 1.5;
+  color: var(--text);
+}
+.thinking {
+  color: var(--text-faint);
+}
+.caret {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  background: var(--accent);
+  animation: caretBlink 0.9s steps(2) infinite;
+}
+@keyframes caretBlink {
+  50% { opacity: 0; }
+}
+.suggestionIdle {
+  margin-top: 8px;
+  color: var(--text-sub);
+  font-size: 0.92rem;
+}
+
+.ungroundedWarning {
+  margin-top: 10px;
+  padding: 8px 12px;
+  font-size: 0.84rem;
+  color: var(--red-text);
+  background: var(--red-bg);
+  border-radius: var(--r-sm);
+}
+
+.suggestionFoot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 14px;
+  gap: 10px;
+}
+.suggestionFootLeft {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+/* Dark charcoal per the mock — the card's orange is the hero, not the button */
+.useButton {
+  padding: 9px 16px;
+  font: inherit;
+  font-weight: 700;
+  color: #fff;
+  background: rgba(10, 12, 16, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: var(--r);
+  cursor: pointer;
+  transition: background var(--t) var(--ease);
+}
+.useButton:hover {
+  background: rgba(10, 12, 16, 0.92);
+}
+.historyToggle {
+  padding: 6px 10px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-sub);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+}
+.historyList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 220px;
+  overflow-y: auto;
+}
+.historyItem {
+  padding: 12px 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+}
+.historyQuery {
+  font-size: 0.78rem;
+  color: var(--text-faint);
+}
+.historyText {
+  margin: 6px 0 10px;
+  font-size: 0.92rem;
+  color: var(--text);
+}
+
+/* ─── Ask AI bar ─────────────────────────────────────────────────────────── */
+
+.askBar {
+  flex: none;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 14px 16px;
+}
+.askRow {
+  display: flex;
+  gap: 10px;
+}
+.askInput {
+  flex: 1;
+  padding: 10px 12px;
+  font: inherit;
+  color: var(--text);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+}
+.askInput:focus {
+  border-color: var(--border-focus);
+  outline: none;
+}
+.askButton {
+  padding: 10px 16px;
+  font: inherit;
+  font-weight: 700;
+  color: #fff;
+  background: var(--accent);
+  border: none;
+  border-radius: var(--r);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.askButton:disabled {
+  opacity: 0.6;
+}
+.askError {
+  margin-top: 8px;
+  color: var(--red-text);
+  font-size: 0.84rem;
+}
+.askAnswer {
+  margin-top: 10px;
+  padding: 12px 14px;
+  max-height: 150px;
+  overflow-y: auto;
+  background: var(--surface-2);
+  border-radius: var(--r-sm);
+  font-size: 0.94rem;
+  color: var(--text);
+}
+.askDismiss {
+  margin-top: 8px;
+  font-size: 0.8rem;
+  color: var(--text-sub);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+/* ─── Right rail ─────────────────────────────────────────────────────────── */
+
+.rightRail {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.railCard {
+  flex: none;
+  padding: 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+}
+.railHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.railTitle,
+.askTitle {
+  display: block;
+  font-size: 0.74rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-faint);
+}
+.railHeadRight {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.liveTextRed {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--red-text);
+  white-space: nowrap;
+}
+.endRoundButton {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  background: var(--accent);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background var(--t) var(--ease);
+}
+.endRoundButton:hover {
+  background: var(--red);
+}
+
+.leadRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 14px;
+}
+.leadAvatar {
+  flex: none;
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--text);
+  background: var(--surface-3);
+  border-radius: var(--r);
+}
+.leadName {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--text);
+}
+.leadSession {
+  margin-top: 2px;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--accent-text);
+}
+.viewDetailsButton {
+  margin-top: 12px;
+  padding: 8px 14px;
+  font: inherit;
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--text);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  cursor: pointer;
+}
+.viewDetailsButton:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.railFaint {
+  margin-top: 8px;
+  font-size: 0.82rem;
+  color: var(--text-faint);
+}
+
+.sentimentRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 12px;
+}
+.sentimentEmoji {
+  flex: none;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  font-size: 1.35rem;
+  background: var(--green-bg);
+  border-radius: 50%;
+}
+.sentimentEmoji[data-tone="Neutral"] {
+  background: var(--amber-bg);
+}
+.sentimentEmoji[data-tone="Needs care"] {
+  background: var(--red-bg);
+}
+.sentimentEmoji[data-tone="idle"] {
+  color: var(--text-faint);
+  background: var(--surface-3);
+}
+.sentimentScore {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text);
+}
+.sentimentScore[data-idle="true"],
+.sentimentLabel[data-idle="true"] {
+  color: var(--text-faint);
+}
+.sentimentLabel {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--green-text);
+}
+.sentimentTrack {
+  margin-top: 8px;
+  height: 7px;
+  border-radius: 99px;
+  background: var(--surface-3);
+  overflow: hidden;
+}
+.sentimentFill {
+  height: 100%;
+  border-radius: 99px;
+  background: linear-gradient(90deg, var(--red), var(--amber), var(--live));
+  transition: width var(--t-slow) var(--ease);
+}
+
+.insightRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 14px;
+}
+.insightIcon {
+  flex: none;
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  font-size: 1rem;
+  background: var(--accent-dim);
+  border-radius: var(--r);
+}
+.insightName {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text);
+}
+.insightSub {
+  margin-top: 2px;
+  font-size: 0.8rem;
+  color: var(--text-sub);
+}
+
+/* Last in the rail, so it grows to meet the bottom of the centre column
+   instead of leaving a gap. When the rail has to scroll there is no spare
+   space and it simply stays at its own height. */
+.strategyCard {
+  flex: 1 0 auto;
+  padding: 16px;
+  background: var(--violet-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+}
+.strategyHead {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.strategyIcon {
+  flex: none;
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  font-size: 0.95rem;
+  background: var(--violet-bg);
+  border: 1px solid var(--violet);
+  border-radius: 50%;
+}
+.strategyTitle {
+  font-size: 0.74rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--violet);
+}
+.strategyText {
+  margin-top: 10px;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--text);
+}
+
+/* ─── Modal ──────────────────────────────────────────────────────────────── */
+
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 60;
+}
+.modal {
+  width: min(620px, 92vw);
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 24px 26px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.modalTitle {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--text);
+}
+.modalSub {
+  color: var(--text-sub);
+  font-size: 0.9rem;
+}
+
+/* Two short fields per row so the dialog reads wide rather than as a long
+   column of inputs. Notes spans both. */
+.modalGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px 16px;
+  margin-top: 14px;
+}
+.modalField {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+.modalField .fieldLabel {
+  margin-top: 0;
+}
+.modalFieldWide {
+  grid-column: 1 / -1;
+}
+.modalActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+@media (max-width: 640px) {
+  .modalGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ─── Responsive ─────────────────────────────────────────────────────────── */
+
+@media (max-width: 980px) {
+  .page {
+    overflow-y: auto;
+  }
+  .liveLayout {
+    grid-template-columns: 1fr;
+  }
+  .transcriptPanel {
+    min-height: 260px;
+  }
+  .rightRail {
+    overflow-y: visible;
+  }
+}

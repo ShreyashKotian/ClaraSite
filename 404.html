@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ClaraAI — The Real-Time AI Sales Co-Pilot for Every Conversation</title>
+<link rel="icon" type="image/png" href="/images/favicon.png">
+<meta name="description" content="ClaraAI is a real-time AI sales co-pilot that gives your sales team the right answers, objection handling, and insights during every live customer conversation.">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+<!-- Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+
+<!-- Tailwind (utility helpers only, most styling lives in custom CSS) -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<header class="site-header" id="site-header">
+  <div class="container">
+    <nav class="site-nav">
+      <a href="#hero" class="brand">
+        <img src="/images/logo.png" alt="ClaraAI Logo" class="brand-logo" />
+      </a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#problem">The Problem</a></li>
+        <li><a href="#managers">For Managers</a></li>
+        <li><a href="#founder">Our Story</a></li>
+        <li><a href="#solution">Solution</a></li>
+        <li class="desktop-only"><a href="#interactive-demo">Interactive Demo</a></li>
+      </ul>
+      <a href="#demo" class="btn btn-primary nav-cta">Book a Live Demo</a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<main id="hero">
+
+  <!-- ============================================================ -->
+  <!-- SECTION 1: THE HIDDEN COST OF EVERY SALES CONVERSATION -->
+  <!-- ============================================================ -->
+  <section class="problem-section" id="problem">
+    <div class="section-glow"></div>
+    <div class="container">
+      <div class="hero-content">
+
+      <p class="eyebrow reveal"><i class="fa-solid fa-circle-exclamation"></i> EVERY SECOND MATTERS IN SALES</p>
+
+      <h1 class="typing-headline">
+        <span class="type-line" id="type-line-1"></span>
+        <span class="type-line accent-line" id="type-line-2"></span><span class="type-cursor" id="type-cursor">&nbsp;</span>
+      </h1>
+
+      <p class="section-sub reveal highlight-sub">
+        "Your sales team doesn't need more training — they need real-time AI guidance during every customer conversation."
+      </p>
+      </div>
+
+  <!-- ============================================================ -->
+
+      <div class="problem-grid reveal">
+        <!-- LEFT: challenge list -->
+        <div class="challenges-col reveal">
+          <h3 class="col-heading">Challenges Every Sales Team Faces</h3>
+          <ul class="challenge-list" id="challenge-list">
+            <li><span class="x-icon"><i class="fa-solid fa-xmark"></i></span>Sales representatives fumble during customer objections.</li>
+            <li><span class="x-icon"><i class="fa-solid fa-xmark"></i></span>They forget pricing, offers, payment plans, or project details.</li>
+            <li><span class="x-icon"><i class="fa-solid fa-xmark"></i></span>Responses vary from one executive to another, creating an inconsistent customer experience.</li>
+            <li><span class="x-icon"><i class="fa-solid fa-xmark"></i></span>New hires require weeks or months before becoming productive.</li>
+            <li><span class="x-icon"><i class="fa-solid fa-xmark"></i></span>Valuable leads are lost because answers aren't available instantly.</li>
+            <li><span class="x-icon"><i class="fa-solid fa-xmark"></i></span>Managers have no visibility into what happens during live sales calls.</li>
+            <li><span class="x-icon"><i class="fa-solid fa-xmark"></i></span>Coaching every representative individually becomes impossible as teams grow.</li>
+            <li><span class="x-icon"><i class="fa-solid fa-xmark"></i></span>Customer intent is never captured in real time.</li>
+            <li><span class="x-icon"><i class="fa-solid fa-xmark"></i></span>Sales knowledge remains trapped in documents instead of being available during conversations.</li>
+          </ul>
+        </div>
+
+        <!-- RIGHT: animated dashboard -->
+        <div class="dashboard-col reveal">
+          <div class="dashboard-mock" id="dashboard-mock">
+            <div class="dashboard-topbar">
+              <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+              <span class="dashboard-title"><i class="fa-solid fa-wave-square"></i> ClaraAI Live Co-Pilot</span>
+              <span class="live-badge"><span class="live-dot"></span>LIVE</span>
+            </div>
+
+            <div class="customer-bubble">
+              <span class="bubble-label">Customer asks</span>
+              <p id="customer-question">"Why should I choose your project instead of another builder?"</p>
+            </div>
+
+            <div class="ai-cards" id="ai-cards">
+              <div class="ai-card" data-idx="0">
+                <div class="ai-card-icon"><i class="fa-solid fa-scale-balanced"></i></div>
+                <div class="ai-card-text">
+                  <span class="ai-card-label">Competitor Comparison</span>
+                  <span class="ai-card-value">3 key advantages over Builder X</span>
+                </div>
+                <i class="fa-solid fa-check ai-check"></i>
+              </div>
+              <div class="ai-card" data-idx="1">
+                <div class="ai-card-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                <div class="ai-card-text">
+                  <span class="ai-card-label">Objection Handling</span>
+                  <span class="ai-card-value">Recommended rebuttal script ready</span>
+                </div>
+                <i class="fa-solid fa-check ai-check"></i>
+              </div>
+              <div class="ai-card" data-idx="2">
+                <div class="ai-card-icon"><i class="fa-solid fa-indian-rupee-sign"></i></div>
+                <div class="ai-card-text">
+                  <span class="ai-card-label">Payment Plan</span>
+                  <span class="ai-card-value">20:80 flexi-plan surfaced instantly</span>
+                </div>
+                <i class="fa-solid fa-check ai-check"></i>
+              </div>
+              <div class="ai-card" data-idx="3">
+                <div class="ai-card-icon"><i class="fa-solid fa-star"></i></div>
+                <div class="ai-card-text">
+                  <span class="ai-card-label">Key USPs</span>
+                  <span class="ai-card-value">Top 3 differentiators highlighted</span>
+                </div>
+                <i class="fa-solid fa-check ai-check"></i>
+              </div>
+              <div class="ai-card" data-idx="4">
+                <div class="ai-card-icon"><i class="fa-solid fa-gauge-high"></i></div>
+                <div class="ai-card-text">
+                  <span class="ai-card-label">Confidence Score</span>
+                  <span class="ai-card-value confidence-value"><span class="confidence-num">0</span>% match to close</span>
+                </div>
+                <i class="fa-solid fa-check ai-check"></i>
+              </div>
+              <div class="ai-card" data-idx="5">
+                <div class="ai-card-icon"><i class="fa-solid fa-comment-dots"></i></div>
+                <div class="ai-card-text">
+                  <span class="ai-card-label">Suggested Response</span>
+                  <span class="ai-card-value">"Our project offers RERA-approved timelines, 30% larger open spaces &amp; a 5-yr maintenance plan…"</span>
+                </div>
+                <i class="fa-solid fa-check ai-check"></i>
+              </div>
+            </div>
+          </div>
+          <p class="dashboard-caption"><i class="fa-solid fa-bolt"></i> Everything animates in real time — while the conversation is still happening.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sandbox-section" id="interactive-demo">
+    <div class="container sandbox-container">
+      
+      <!-- Mobile View Message -->
+      <div class="sandbox-mobile-message">
+        <h2>Interactive Demo</h2>
+        <p>For interactive Demo Open this site on Desktop</p>
+      </div>
+
+      <div class="sandbox-desktop-content">
+        <div class="sandbox-walkthrough">
+          <h2>Interactive Demo</h2>
+          <p>This is a fully functional, self-contained interactive demo of the ClaraAI Dashboard. Click through the sidebar to explore the simulated interface.</p>
+          
+          <div class="sandbox-controls" style="display:flex; gap: 10px; justify-content: center; margin-top: 20px; flex-wrap: wrap;">
+            <button class="btn btn-primary" type="button" onclick="navigateDemo('/', event)">Dashboard</button>
+            <button class="btn btn-primary" type="button" onclick="navigateDemo('/live', event)">Live Agent Calls</button>
+            <button class="btn btn-primary" type="button" onclick="navigateDemo('/knowledge', event)">Knowledge Base</button>
+            <button class="btn btn-primary" type="button" onclick="navigateDemo('/analytics', event)">Analytics</button>
+          </div>
+
+        </div>
+        <div class="sandbox-mockup">
+          <div class="mockup-browser">
+            <div class="mockup-browser-header">
+              <div class="mac-buttons">
+                <span class="close"></span><span class="minimize"></span><span class="maximize"></span>
+              </div>
+              <div class="address-bar" id="mockup-address-bar">https://app.claraai.com/dashboard</div>
+            </div>
+            <div class="mockup-browser-body" id="interactive-frontend-showcase">
+              <iframe id="interactive-demo-iframe" src="/demo/#/" title="ClaraAI Interactive Demo" style="width: 100%; height: 100%; border: none; display: block; background: #0b0f19;"></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 2: WHAT MANAGERS STRUGGLE WITH -->
+  <!-- ============================================================ -->
+  <section class="managers-section" id="managers">
+    <div class="container">
+      <p class="eyebrow light reveal"><i class="fa-solid fa-users-gear"></i> For Sales Leadership</p>
+      <h2 class="section-title light reveal" id="managers-heading"><span class="type-text" data-full="Challenges Every Sales Team Faces"></span><span class="type-cursor"></span></h2>
+      <p class="section-sub light reveal">Even the best CRM dashboards can't tell you what's really happening in the room or on the call.</p>
+
+      <div class="manager-cards">
+        <div class="manager-card reveal">
+          <div class="manager-icon"><i class="fa-solid fa-eye-slash"></i></div>
+          <h3>No Visibility</h3>
+          <p>Managers don't know why one sales representative closes more deals than another.</p>
+        </div>
+        <div class="manager-card reveal">
+          <div class="manager-icon"><i class="fa-solid fa-headset"></i></div>
+          <h3>No Live Assistance</h3>
+          <p>Managers can't support every executive during customer conversations.</p>
+        </div>
+        <div class="manager-card reveal">
+          <div class="manager-icon"><i class="fa-solid fa-shuffle"></i></div>
+          <h3>No Standardization</h3>
+          <p>Every representative explains products differently.</p>
+        </div>
+        <div class="manager-card reveal">
+          <div class="manager-icon"><i class="fa-solid fa-hourglass-half"></i></div>
+          <h3>Difficult Coaching</h3>
+          <p>Call recordings are reviewed long after opportunities are lost.</p>
+        </div>
+        <div class="manager-card reveal">
+          <div class="manager-icon"><i class="fa-solid fa-magnifying-glass-chart"></i></div>
+          <h3>No Customer Intent Insights</h3>
+          <p>Managers don't know which prospects are actually ready to buy.</p>
+        </div>
+        <div class="manager-card reveal">
+          <div class="manager-icon"><i class="fa-solid fa-chart-simple"></i></div>
+          <h3>No Performance Intelligence</h3>
+          <p>No consolidated dashboard showing conversion patterns, objection trends, customer sentiment, product demand, and agent performance.</p>
+        </div>
+      </div>
+
+      <div class="highlight-statement reveal">
+        <p><strong>Sales Managers don't need more reports.</strong></p>
+        <p class="highlight-accent">They need real-time intelligence.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- FOUNDER STORY (placed right after problem/manager sections) -->
+  <!-- ============================================================ -->
+  <section class="founder-section" id="founder">
+    <div class="founder-bg" style="background-image:url('/images/dubai-skyline-bg.jpg');"></div>
+    <div class="founder-overlay"></div>
+    <div class="container founder-container">
+      <p class="eyebrow light reveal"><i class="fa-solid fa-lightbulb"></i> The Origin of Clara AI</p>
+      <h2 class="section-title light reveal">One Observation. One Question. One Mission.</h2>
+
+      <div class="founder-grid">
+        <div class="founder-photo-wrap reveal">
+          <img src="/images/founder-vitus.png" alt="Vitus Rodrigo, Founder of ClaraAI" class="founder-photo">
+          <div class="founder-caption">
+            <span class="founder-name">Vitus Rodrigo</span>
+            <span class="founder-role">Founder, ClaraAI</span>
+          </div>
+        </div>
+
+        <div class="founder-copy reveal">
+          <p>While visiting the UAE, I spent time with real estate sales teams and observed their customer conversations. I noticed something that kept coming up — sales reps often struggled when customers raised unexpected objections.</p>
+            <p>They knew their products, but when a customer said "The price is too high," "I need to think about it," or "I'm comparing other projects," they didn't always have the right response at that exact moment.</p>
+                <p>That made me think:</p>
+                <blockquote class="founder-quote">"What if every salesperson had an AI expert sitting beside them to help handle every customer call?"</blockquote>
+                <p>When I returned to India, I started building <strong>ClaraAI</strong> — not to replace salespeople, but to give them real-time support during the moments that can make or break a deal.</p>
+                <p>And it doesn't stop with the salesperson. Managers can see exactly how each representative is performing, which objections they struggle with, how they handle conversations, and where coaching is needed.</p>
+                <p class="founder-vision"><u>My vision is simple:</u> <span style="font-weight:500;"><i>Help every salesperson handle objections with confidence and give every manager the intelligence to build a stronger sales team.</i></span></p>
+        </div>
+      </div>
+
+      <div class="closing-quote reveal">
+        <i class="fa-solid fa-quote-left quote-mark"></i>
+        <p>AI should never replace great salespeople. It should help every salesperson become great.</p>
+        <span class="quote-author">— Vitus Rodrigo, Founder ClaraAI</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 3: HOW CLARAAI SOLVES EVERY PROBLEM (COMPARISON) -->
+  <!-- ============================================================ -->
+  <section class="solution-section" id="solution">
+    <div class="container">
+      <p class="eyebrow reveal"><i class="fa-solid fa-wand-magic-sparkles"></i> The Clara AI Difference</p>
+      <h2 class="section-title reveal">How ClaraAI Solves Every One of These Problems</h2>
+      <p class="section-sub reveal">Not a features list but a complete transformation of how your team sells.</p>
+
+      <div class="compare-wrap reveal">
+        <div class="compare-header">
+          <div class="compare-col-header without"><i class="fa-solid fa-triangle-exclamation"></i> Without ClaraAI</div>
+          <div class="compare-col-header with"><i class="fa-solid fa-circle-check"></i> With ClaraAI</div>
+        </div>
+
+        <div class="compare-row">
+          <div class="compare-cell without">Sales reps depend on memory</div>
+          <div class="compare-cell with">AI provides answers instantly</div>
+        </div>
+        <div class="compare-row">
+          <div class="compare-cell without">Objections create hesitation</div>
+          <div class="compare-cell with">AI recommends the best response immediately</div>
+        </div>
+        <div class="compare-row">
+          <div class="compare-cell without">Managers review calls after they happen</div>
+          <div class="compare-cell with">Managers receive live insights and post-call analytics</div>
+        </div>
+        <div class="compare-row">
+          <div class="compare-cell without">Long onboarding process</div>
+          <div class="compare-cell with">New hires perform confidently from day one</div>
+        </div>
+        <div class="compare-row">
+          <div class="compare-cell without">Inconsistent customer experience</div>
+          <div class="compare-cell with">Standardized AI-assisted conversations</div>
+        </div>
+        <div class="compare-row">
+          <div class="compare-cell without">Lost opportunities</div>
+          <div class="compare-cell with">Higher conversion rates</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+  <!-- DEMO BOOKING CTA -->
+  <!-- ============================================================ -->
+  <section class="demo-section" id="demo">
+    <div class="container demo-container">
+      <div class="demo-copy reveal">
+        <p class="eyebrow light"><i class="fa-solid fa-calendar-check"></i> Book a Live Demo</p>
+        <h2 class="section-title light">See ClaraAI on a Live Sales Call, Not a Slide Deck.</h2>
+        <p class="section-sub light">Show us your toughest objection. Watch ClaraAI respond in real time.</p>
+        <ul class="demo-points">
+          <li><i class="fa-solid fa-check"></i> 30-minute personalized walkthrough</li>
+          <li><i class="fa-solid fa-check"></i> See it work with your own product/project data</li>
+          <li><i class="fa-solid fa-check"></i> No commitment required</li>
+        </ul>
+      </div>
+
+      <div class="calendar-wrapper reveal" id="calendar-container">
+        <!-- Google Calendar Appointment Scheduling -->
+        <iframe src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ2EQEs876mXMYL4lAhhaCXT6jzqWFiK6Ll8yxq6xHTi_6VUVdaj2FlDLu2FwCOM7dzViK0ayFfB?gv=true&showTitle=0&showPrint=0&showTabs=0&showCalendars=0&showTz=0&bgcolor=%23121826" width="100%" height="100%" frameborder="0" scrolling="yes"></iframe>
+        <!-- end Google Calendar Appointment Scheduling -->
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="container">
+    <!-- Top Section -->
+    <div class="footer-top-grid">
+      <!-- Col 1 -->
+      <div class="footer-col brand-col">
+        <img src="/images/logoFooter.png" alt="ClaraAI Logo" class="brand-logo" style="margin-bottom: 20px;" />
+        <a href="mailto:biz@thehubcode.com" class="footer-contact" style="text-decoration: none;"><i class="fa-solid fa-envelope"></i> biz@thehubcode.com</a>
+        <a href="tel:+918369698455" class="footer-contact" style="text-decoration: none;"><i class="fa-solid fa-phone"></i> +91 8369698455</a>
+        <a href="https://www.thehubcode.com" target="_blank" rel="noopener noreferrer" class="footer-contact" style="text-decoration: none;"><i class="fa-solid fa-globe"></i> www.thehubcode.com</a>
+      </div>
+
+      <!-- Cols 2, 3, 4 (with Mobile Accordions) -->
+      <div class="footer-col links-col">
+        <h4 class="footer-col-title accordion-toggle">Product <i class="fa-solid fa-chevron-down accordion-icon"></i></h4>
+        <ul class="footer-link-list">
+          <li><a href="#problem">The Problem</a></li>
+          <li><a href="#solution">Solution</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col links-col">
+        <h4 class="footer-col-title accordion-toggle">Company <i class="fa-solid fa-chevron-down accordion-icon"></i></h4>
+        <ul class="footer-link-list">
+          <li><a href="#founder">Our Story</a></li>
+          <li><a href="#managers">For Managers</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col links-col">
+        <h4 class="footer-col-title accordion-toggle">Resources <i class="fa-solid fa-chevron-down accordion-icon"></i></h4>
+        <ul class="footer-link-list">
+          <li><a href="#demo">Book a Demo</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Middle Section -->
+    <div class="footer-middle">
+      <div class="social-links">
+        <a href="http://linkedin.com/company/the-hub-code-it-services" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        <a href="http://www.instagram.com/_thehubcode" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="https://www.youtube.com" target="_blank" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+      </div>
+      <div class="watermark-logo">
+        CLARA AI
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Section -->
+  <div class="footer-bottom-bar">
+    <div class="container footer-bottom-inner">
+      <div class="copyright">
+        &copy; 2026 Clara AI. All rights reserved. | Powered By TheHubCode
+      </div>
+      <div class="legal-links">
+        <a href="#">Terms & Conditions</a>
+        <a href="#">Privacy Policy</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const toggles = document.querySelectorAll('.accordion-toggle');
+      toggles.forEach(toggle => {
+        toggle.addEventListener('click', () => {
+          if (window.innerWidth <= 768) {
+            toggle.parentElement.classList.toggle('active');
+          }
+        });
+      });
+    });
+  </script>
+</footer>
+
+<script src="/js/main.js"></script>
+
+<!-- Sandbox Demo Styles -->
+<style>
+/* Scoping the sandbox to not bleed into the rest of the site */
+.sandbox-section {
+    padding: 80px 0;
+    background: #0a0e17;
+}
+.sandbox-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+.sandbox-walkthrough {
+    text-align: center;
+    margin-bottom: 24px;
+    color: white;
+}
+.sandbox-walkthrough h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    font-family: var(--font-display);
+    font-weight: 700;
+}
+.sandbox-walkthrough p {
+    font-size: 1.1rem;
+    color: #9ca3af;
+    max-width: 600px;
+    margin: 0 auto 2rem;
+    font-family: var(--font-body);
+}
+.sandbox-controls button {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+.sandbox-mockup {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+.mockup-browser {
+    background: #1e1e1e;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    border: 1px solid #333;
+    position: relative;
+    transform: translateZ(0); /* Force clip for border-radius */
+}
+.mockup-browser-header {
+    background: #2d2d2d;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #444;
+}
+.mac-buttons {
+    display: flex;
+    gap: 8px;
+}
+.mac-buttons span {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+.mac-buttons .close { background: #ff5f56; }
+.mac-buttons .minimize { background: #ffbd2e; }
+.mac-buttons .maximize { background: #27c93f; }
+
+.address-bar {
+    background: #1a1a1a;
+    color: #888;
+    font-size: 13px;
+    padding: 4px 16px;
+    border-radius: 6px;
+    margin: 0 auto;
+    width: 60%;
+    text-align: center;
+}
+.mockup-browser-body {
+    height: 660px;
+    min-height: 660px;
+    position: relative;
+    overflow: hidden;
+    overscroll-behavior: contain;
+}
+#interactive-frontend-showcase {
+    background: #0b0f19;
+    height: 660px;
+    min-height: 660px;
+    width: 100%;
+    position: relative;
+    border-radius: 0 0 12px 12px;
+    overflow: hidden;
+    overscroll-behavior: contain;
+    display: flex;
+    flex-direction: column;
+}
+#interactive-demo-iframe {
+    width: 100%;
+    height: 660px;
+    min-height: 660px;
+    border: none;
+    display: block;
+    background: #0b0f19;
+    overscroll-behavior: contain;
+}
+
+.sandbox-mobile-message {
+    display: none;
+}
+
+@media (max-width: 900px) {
+    .sandbox-desktop-content {
+        display: none;
+    }
+    .sandbox-mobile-message {
+        display: block;
+        text-align: center;
+        padding: 40px 20px;
+    }
+    .sandbox-mobile-message h2 {
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+        font-family: var(--font-display);
+        font-weight: 700;
+        color: white;
+    }
+    .sandbox-mobile-message p {
+        font-size: 1rem;
+        color: #eef1f8;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        padding: 20px;
+        margin: 0 auto;
+        max-width: 400px;
+        line-height: 1.5;
+    }
+}
+</style>
+<script>
+let scrollLockY = null;
+let scrollLockUntil = 0;
+let scrollLockRafId = null;
+
+function releaseScrollLock() {
+  scrollLockY = null;
+  scrollLockUntil = 0;
+  if (scrollLockRafId !== null) {
+    cancelAnimationFrame(scrollLockRafId);
+    scrollLockRafId = null;
+  }
+}
+
+// Ensure deliberate user scroll gestures are never hijacked or fought
+window.addEventListener('wheel', releaseScrollLock, { passive: true });
+window.addEventListener('touchmove', releaseScrollLock, { passive: true });
+window.addEventListener('pointerdown', releaseScrollLock, { passive: true });
+window.addEventListener('keydown', (e) => {
+  if (['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Space', 'Home', 'End', 'Tab'].includes(e.code || e.key)) {
+    releaseScrollLock();
+  }
+}, { passive: true });
+
+// Prevent programmatic focus on parent page from scrolling the viewport
+if (typeof HTMLElement !== 'undefined' && HTMLElement.prototype.focus) {
+  const originalFocus = HTMLElement.prototype.focus;
+  HTMLElement.prototype.focus = function (options) {
+    if (typeof options === 'object' && options !== null) {
+      return originalFocus.call(this, { ...options, preventScroll: options.preventScroll ?? true });
+    }
+    return originalFocus.call(this, { preventScroll: true });
+  };
+}
+
+function enforceScrollLock(y, duration = 300) {
+  scrollLockY = y;
+  scrollLockUntil = performance.now() + duration;
+  if (scrollLockRafId !== null) {
+    cancelAnimationFrame(scrollLockRafId);
+  }
+  const check = () => {
+    if (scrollLockY !== null && performance.now() < scrollLockUntil) {
+      if (Math.abs(window.scrollY - scrollLockY) > 0) {
+        window.scrollTo({ top: scrollLockY, behavior: 'instant' });
+      }
+      scrollLockRafId = requestAnimationFrame(check);
+    } else {
+      scrollLockY = null;
+      scrollLockRafId = null;
+    }
+  };
+  scrollLockRafId = requestAnimationFrame(check);
+}
+
+function navigateDemo(route, e) {
+  if (e && e.preventDefault) e.preventDefault();
+  const currentY = window.scrollY;
+  enforceScrollLock(currentY, 300);
+
+  const iframe = document.getElementById('interactive-demo-iframe');
+  const addressBar = document.getElementById('mockup-address-bar');
+  if (iframe && iframe.contentWindow) {
+    try {
+      iframe.contentWindow.postMessage({ type: 'CLARA_NAVIGATE', route }, '*');
+    } catch (_) {}
+    try {
+      iframe.contentWindow.location.hash = '#' + (route === '/' ? '/' : route);
+    } catch (_) {}
+  }
+  if (addressBar) {
+    const displayRoute = route === '/' ? '/dashboard' : route;
+    addressBar.textContent = 'https://app.claraai.com' + displayRoute;
+  }
+}
+
+window.addEventListener('message', (event) => {
+  const iframe = document.getElementById('interactive-demo-iframe');
+  if (!iframe || event.source !== iframe.contentWindow) return;
+  if (event.data) {
+    if (event.data.type === 'DEMO_LOCK_SCROLL') {
+      enforceScrollLock(window.scrollY, 300);
+    } else if (event.data.type === 'DEMO_ROUTE_CHANGED') {
+      const rawRoute = (event.data.route || '').replace(/^#\/?/, '/');
+      const displayRoute = (!rawRoute || rawRoute === '/') ? '/dashboard' : rawRoute;
+      const addressBar = document.getElementById('mockup-address-bar');
+      if (addressBar) addressBar.textContent = 'https://app.claraai.com' + displayRoute;
+    }
+  }
+});
+
+function attachIframeListeners() {
+  const iframe = document.getElementById('interactive-demo-iframe');
+  const addressBar = document.getElementById('mockup-address-bar');
+  if (!iframe) return;
+
+  const syncAddressBar = () => {
+    try {
+      if (iframe.contentWindow) {
+        const hash = (iframe.contentWindow.location.hash || '').replace(/^#\/?/, '/');
+        const displayRoute = (!hash || hash === '/') ? '/dashboard' : hash;
+        if (addressBar) addressBar.textContent = 'https://app.claraai.com' + displayRoute;
+      }
+    } catch (_) {}
+  };
+
+  const bindHashChange = () => {
+    try {
+      if (iframe.contentWindow) {
+        iframe.contentWindow.removeEventListener('hashchange', syncAddressBar);
+        iframe.contentWindow.addEventListener('hashchange', syncAddressBar);
+        syncAddressBar();
+      }
+    } catch (_) {}
+  };
+
+  bindHashChange();
+  iframe.addEventListener('load', bindHashChange);
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', attachIframeListeners);
+} else {
+  attachIframeListeners();
+}
+</script>
+
+</body>
+</html>

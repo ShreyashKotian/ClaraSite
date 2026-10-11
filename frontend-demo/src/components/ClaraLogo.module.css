@@ -1,0 +1,24 @@
+.mark {
+  display: block;
+  object-fit: contain;
+  user-select: none;
+}
+
+/* Both coloured glyphs paint a theme gradient through the letterforms — the
+   "C" on the mark's diagonal, the "AI" on the lockup's vertical sweep. The
+   stops live in index.css so each theme can keep them legible. */
+.c,
+.ai {
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: var(--brand-glow);
+}
+
+.c {
+  background-image: var(--brand-grad-c);
+}
+
+.ai {
+  background-image: var(--brand-grad-ai);
+}

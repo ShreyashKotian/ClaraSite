@@ -1,0 +1,54 @@
+/* App shell and page scaffolding.
+ *
+ * AppLayout imports this as `styles`; DashboardPage, KnowledgeBasePage and
+ * AnalyticsPage import it as `appStyles` for the page frame below. Every other
+ * screen owns its own module — check BOTH aliases before calling anything here
+ * unused, which is how the page padding once got deleted by mistake. */
+
+/* ─── Shell ──────────────────────────────────────────────────────────────── */
+
+.shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--surface);
+}
+
+/* Dark shell is a flat cool charcoal (product mock) — no ambient glow. */
+:global(html[data-theme="dark"]) .shell,
+:global(html[data-theme="dark"]) .workspace {
+  background: var(--bg);
+}
+
+.shellMain {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.workspace {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  background: var(--surface);
+  overflow-anchor: none;
+}
+
+/* ─── Responsive ─────────────────────────────────────────────────────────── */
+
+/* Below 768px the sidebar collapses into its own mobile topbar, so it has to
+   stack above the workspace instead of sitting beside it. */
+@media (max-width: 768px) {
+  .shellMain {
+    flex-direction: column;
+  }
+}

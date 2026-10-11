@@ -1,0 +1,791 @@
+/* Call insights — same tokens, rhythm and card language as the other pages */
+
+.page {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 100%;
+  padding: 18px 24px 22px;
+  background: var(--bg);
+}
+.page > * {
+  flex: 0 0 auto;
+}
+
+/* Header */
+
+.pageHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.pageTitle {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--text);
+}
+.pageSub {
+  margin-top: 4px;
+  max-width: 62ch;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--text-sub);
+}
+.refreshing {
+  margin-left: 10px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--accent-text);
+}
+.staleBanner {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 10px 14px;
+  font-size: 0.86rem;
+  color: var(--amber-text);
+  background: var(--amber-bg);
+  border: 1px solid var(--amber-border);
+  border-radius: var(--r);
+}
+
+/* Summary strip */
+
+.statRow {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+}
+.stat {
+  padding: 15px 18px;
+  border-left: 1px solid var(--sep);
+}
+.stat:first-child {
+  border-left: none;
+}
+.statLabel {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-faint);
+}
+.statValue {
+  display: block;
+  margin-top: 9px;
+  font-size: 1.6rem;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+.statNote {
+  display: block;
+  margin-top: 5px;
+  font-size: 0.74rem;
+  color: var(--text-faint);
+}
+
+/* Cards */
+
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  align-items: stretch;
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 22px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+}
+.cardHead {
+  margin-bottom: 16px;
+}
+/* Only the calls card puts a control beside its title; the rest of the page's
+   headings are a title and a caption, and must not be stretched into a row. */
+.cardHeadRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.cardTitle {
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: var(--text);
+}
+.cardCaption {
+  margin-top: 3px;
+  font-size: 0.8rem;
+  color: var(--text-faint);
+}
+.cardFoot {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: auto;
+  padding-top: 14px;
+  font-size: 0.82rem;
+  color: var(--text-sub);
+  border-top: 1px solid var(--sep);
+}
+.cardFoot svg {
+  flex: none;
+  color: var(--accent-text);
+}
+.empty {
+  padding: 26px 0;
+  text-align: center;
+  font-size: 0.88rem;
+  color: var(--text-faint);
+}
+
+/* Volume chart */
+
+.chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  height: 168px;
+}
+.chartScroll {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: thin;
+}
+.chartBars {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  height: 100%;
+  min-width: 100%;
+}
+.chartCol {
+  flex: 1;
+  min-width: 58px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  height: 100%;
+  padding: 0;
+  font: inherit;
+  background: none;
+  border: none;
+  border-radius: var(--r-sm);
+  cursor: pointer;
+}
+.chartCol:hover .chartBar {
+  filter: brightness(1.08);
+}
+.chartCol:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+.chartCount {
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--text);
+}
+.chartBar {
+  width: 100%;
+  max-width: 46px;
+  min-height: 2px;
+  border-radius: var(--r-xs) var(--r-xs) 0 0;
+  background: var(--accent);
+}
+.chartBar[data-empty="true"] {
+  background: var(--surface-3);
+}
+.chartLabel {
+  font-size: 0.7rem;
+  color: var(--text-faint);
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* Bar rows (close chance, customer cues) */
+
+.barList {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.barRow {
+  display: block;
+  width: 100%;
+  padding: 6px 8px;
+  font: inherit;
+  text-align: left;
+  background: none;
+  border: none;
+  border-radius: var(--r-sm);
+  cursor: pointer;
+}
+.barRow:hover {
+  background: var(--surface-2);
+}
+.barRow:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: -2px;
+}
+.barTop {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+.barLabel {
+  font-size: 0.86rem;
+  color: var(--text-sub);
+}
+.barValue {
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+.barTrack {
+  /* Inline by default as a <span>, which drops the height and paints the
+     background as a stray sliver behind the fill. */
+  display: block;
+  height: 7px;
+  border-radius: 999px;
+  background: var(--surface-3);
+  overflow: hidden;
+}
+.barFill {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--accent);
+}
+.barFill[data-tone="good"] {
+  background: var(--green);
+}
+.barFill[data-tone="bad"] {
+  background: var(--red);
+}
+.barFill[data-tone="mid"] {
+  background: var(--amber);
+}
+
+/* Talk balance */
+
+.talkTop {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+.talkPill {
+  padding: 4px 11px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--amber-text);
+  background: var(--amber-bg);
+  border: 1px solid var(--amber-border);
+  border-radius: 999px;
+}
+.talkPill[data-balanced="true"] {
+  color: var(--green-text);
+  background: var(--green-bg);
+  border-color: var(--green-border);
+}
+.talkSplit {
+  font-size: 0.82rem;
+  color: var(--text-sub);
+}
+.splitBar {
+  display: flex;
+  gap: 3px;
+  height: 8px;
+  margin-bottom: 18px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: var(--surface-3);
+}
+.splitRep {
+  background: var(--accent);
+  border-radius: 999px;
+}
+.splitProspect {
+  background: var(--teal);
+  border-radius: 999px;
+}
+.miniGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+.mini {
+  display: block;
+  width: 100%;
+  padding: 12px 14px;
+  font: inherit;
+  text-align: center;
+  background: var(--surface-2);
+  border: 1px solid var(--sep);
+  border-radius: var(--r);
+  cursor: pointer;
+  transition: border-color var(--t) var(--ease);
+}
+.mini:hover {
+  border-color: var(--accent);
+}
+.mini:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.miniValue {
+  display: block;
+  font-size: 1.3rem;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+.miniLabel {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-faint);
+}
+
+/* Recent calls table */
+
+.tableScroll {
+  overflow-x: auto;
+}
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.86rem;
+}
+.table th {
+  padding: 0 12px 10px;
+  text-align: left;
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: var(--text-faint);
+  white-space: nowrap;
+}
+.table td {
+  padding: 11px 12px;
+  border-top: 1px solid var(--sep);
+  color: var(--text-sub);
+  white-space: nowrap;
+}
+.table tbody tr:hover td {
+  background: var(--surface-2);
+}
+.callName {
+  font-weight: 600;
+  color: var(--text);
+}
+.outcomePill {
+  padding: 4px 11px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  border-radius: 999px;
+  color: var(--green-text);
+  background: var(--green-bg);
+  border: 1px solid var(--green-border);
+}
+.outcomePill[data-outcome="follow_up"] {
+  color: var(--amber-text);
+  background: var(--amber-bg);
+  border-color: var(--amber-border);
+}
+.outcomePill[data-outcome="at_risk"] {
+  color: var(--red-text);
+  background: var(--red-bg);
+  border-color: var(--red-border);
+}
+.outcomePill[data-outcome="nurture"],
+.outcomePill[data-outcome="pending"] {
+  color: var(--text-sub);
+  background: var(--surface-2);
+  border-color: var(--border);
+}
+.scoreCell {
+  font-weight: 700;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+.rowActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
+}
+.reviewBtn {
+  padding: 5px 14px;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--accent-text);
+  background: none;
+  border: 1px solid var(--suggestion-border);
+  border-radius: var(--r-sm);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.reviewBtn:hover {
+  background: var(--accent-dim);
+}
+.iconButton {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  color: var(--text-faint);
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  cursor: pointer;
+}
+.iconButton:hover {
+  color: var(--text);
+  border-color: var(--border-strong);
+}
+
+/* States */
+
+.statusPanel {
+  margin: 12vh auto 0;
+  max-width: 420px;
+  padding: 24px;
+  text-align: center;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.statusTitle {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--text);
+}
+.statusBody {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--text-sub);
+}
+
+@media (max-width: 1200px) {
+  .statRow {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .stat:nth-child(n + 4) {
+    border-top: 1px solid var(--sep);
+  }
+  .stat:nth-child(4) {
+    border-left: none;
+  }
+  .cardGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .statRow {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .miniGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Drill-down modal — the call list behind any chart. */
+
+.drillBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  box-sizing: border-box;
+}
+.drillBody {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: 0.35rem 0;
+}
+.drillClose {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: var(--r-sm);
+  background: var(--surface-2);
+  color: var(--text-sub);
+  font-size: 1.35rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background var(--t) var(--ease), color var(--t) var(--ease);
+}
+.drillClose:hover {
+  background: var(--surface-3);
+  color: var(--text);
+}
+.drillEmpty {
+  margin: 2rem 1.15rem;
+  text-align: center;
+  color: var(--text-sub);
+  font-size: 0.82rem;
+}
+.drillEyebrow {
+  margin: 0 0 0.25rem;
+  font-size: 0.58rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+}
+.drillFoot {
+  padding: 0.65rem 1.15rem;
+  border-top: 1px solid var(--sep);
+  font-size: 0.68rem;
+  color: var(--text-faint);
+}
+.drillHead {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.15rem;
+  border-bottom: 1px solid var(--sep);
+  background: linear-gradient(180deg, var(--surface-2) 0%, var(--surface) 100%);
+}
+.drillModal {
+  width: min(820px, 100%);
+  max-height: min(88vh, 860px);
+  background: var(--surface);
+  border-radius: 16px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--sep);
+}
+.drillReviewLink {
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration: none;
+}
+.drillReviewLink:hover {
+  text-decoration: underline;
+}
+.drillStat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.12rem;
+  padding: 0.55rem 0.65rem;
+  border-radius: 10px;
+  background: var(--surface-2);
+  border: 1px solid var(--sep);
+}
+.drillStatLabel {
+  font-size: 0.62rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-sub);
+}
+.drillStatValue {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+.drillStats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.65rem;
+  padding: 0.85rem 1.15rem;
+  border-bottom: 1px solid var(--sep);
+}
+.drillSubtitle {
+  margin: 0.35rem 0 0;
+  font-size: 0.78rem;
+  color: var(--text-sub);
+}
+.drillTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+}
+.drillTable th,
+.drillTable td {
+  text-align: left;
+  padding: 0.72rem 1.15rem;
+  border-bottom: 1px solid var(--sep);
+}
+.drillTable th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  font-size: 0.58rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-faint);
+  background: var(--surface);
+}
+.drillTable tbody tr:hover td {
+  background: rgba(243, 244, 246, 0.55);
+}
+.drillTitle {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.25;
+}
+.quoteCard {
+  border: 1px solid var(--sep);
+  border-radius: 12px;
+  background: var(--surface);
+  padding: 0.85rem 1rem;
+}
+.quoteCardEmpty {
+  margin: 0;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--text-faint);
+}
+.quoteCardHead {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+.quoteCardLabel {
+  margin: 0.7rem 0 0.4rem;
+  font-size: 0.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-faint);
+}
+.quoteCardLabel[data-tone="good"] {
+  color: var(--green-text);
+}
+.quoteCardLabel[data-tone="bad"] {
+  color: var(--red-text);
+}
+.quoteCardLink {
+  display: inline-block;
+  margin-top: 0.75rem;
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--accent-text);
+  text-decoration: none;
+}
+.quoteCardLink:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.quoteCardList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+.quoteCardList li {
+  padding-left: 0.75rem;
+  border-left: 2px solid var(--accent);
+  font-size: 0.84rem;
+  line-height: 1.55;
+  color: var(--text);
+}
+/* The rule down the side is the only thing separating the two lists on a
+   signals card, so it carries the tone rather than the accent colour. */
+.quoteCardList[data-tone="good"] li {
+  border-left-color: var(--green);
+}
+.quoteCardList[data-tone="bad"] li {
+  border-left-color: var(--red);
+}
+.quoteCardStats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.9rem;
+  margin-top: 0.6rem;
+  padding-bottom: 0.7rem;
+  border-bottom: 1px solid var(--sep);
+  font-size: 0.72rem;
+  color: var(--text-sub);
+  font-variant-numeric: tabular-nums;
+}
+.quoteCardWhen {
+  margin: 0;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text);
+}
+.quoteCardWho {
+  margin: 0.1rem 0 0;
+  font-size: 0.72rem;
+  color: var(--text-faint);
+}
+.quoteCards {
+  list-style: none;
+  margin: 0;
+  padding: 0.85rem 1.15rem 1.15rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+.scorePill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2rem;
+  padding: 0.12rem 0.4rem;
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.scorePill[data-tone="high"] {
+  background: color-mix(in srgb, var(--teal-text) 14%, transparent);
+  color: var(--teal-text);
+}
+.scorePill[data-tone="mid"] {
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  color: var(--accent);
+}
+.scorePill[data-tone="low"] {
+  background: var(--surface-2);
+  color: var(--text-sub);
+}

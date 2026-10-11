@@ -1,0 +1,15 @@
+{
+  "name": "clara-ai-web",
+  "version": "1.0.0",
+  "description": "ClaraAI Web Site",
+  "main": "server.js",
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js",
+    "build": "echo \"No build step required\"",
+    "test": "echo \"No tests specified\""
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

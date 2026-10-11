@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clara AI — Autonomous Voice AI Platform</title>
+<link rel="icon" type="image/png" href="/images/favicon.png">
+<meta name="description" content="Clara AI is the next-gen autonomous voice workforce for high-velocity sales. Sub-500ms voice AI handling inbound qualification, outbound sales, and calendar bookings with human prosody.">
+
+<!-- Fonts: Google Font Figtree (400, 500, 600, 700) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+
+<!-- Icons: FontAwesome -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+
+<!-- Tailwind CDN with Near.com Theme Tokens -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      fontFamily: {
+        sans: ['Figtree', 'system-ui', '-apple-system', 'sans-serif'],
+      },
+      colors: {
+        mint: {
+          100: '#CCFFE1',
+          200: '#99FFC4',
+          300: '#65FBAA',
+          400: '#31F49C',
+          500: '#00EC97',
+        },
+        slate: {
+          800: '#171717',
+          850: '#13161F',
+          900: '#0D0D0D',
+        }
+      }
+    }
+  }
+}
+</script>
+
+<!-- Custom Stylesheet -->
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="bg-white text-gray-900 font-sans antialiased">
+
+<!-- ==========================================================================
+     STICKY GLASSMORPHIC HEADER (73px)
+     ========================================================================== -->
+<header class="site-header" id="site-header">
+  <div class="max-w-7xl mx-auto h-full px-6 sm:px-8 border-x border-transparent xl:border-black/11 flex items-center justify-between">
+    <!-- Brand Logo -->
+    <a href="#hero" class="brand-capsule group">
+      <img src="/images/logo-white.png" alt="Clara AI">
+    </a>
+
+    <!-- Desktop Navigation Links -->
+    <nav class="hidden lg:flex items-center gap-8 text-sm font-medium text-gray-600">
+      <a href="#capabilities" class="hover:text-gray-900 transition-colors">Capabilities</a>
+      <a href="#interactive-demo" class="hover:text-gray-900 transition-colors">Live Showcase</a>
+      <a href="#infrastructure" class="hover:text-gray-900 transition-colors">Infrastructure</a>
+      <a href="#integrations" class="hover:text-gray-900 transition-colors">Integrations</a>
+      <a href="#founder" class="hover:text-gray-900 transition-colors">Our Story</a>
+      <a href="#faq" class="hover:text-gray-900 transition-colors">FAQ</a>
+    </nav>
+
+    <!-- Header CTA & Mobile Toggle -->
+    <div class="flex items-center gap-3">
+      <button onclick="openBookingModal()" class="header-cta-secondary hidden sm:inline-flex items-center gap-2 px-4 py-2 text-xs font-semibold rounded-xl bg-gray-900 text-white hover:bg-black transition-colors duration-150 shadow-sm">
+        <span>Book a Live Demo</span>
+        <i class="fa-solid fa-arrow-right text-[10px]"></i>
+      </button>
+      <button onclick="openBookingModal()" class="hidden sm:inline-flex lg:hidden items-center gap-2 px-3.5 py-1.5 text-xs font-semibold rounded-xl bg-gray-900 text-white hover:bg-black transition">
+        Demo
+      </button>
+      <button class="lg:hidden p-2 text-gray-700 hover:text-gray-900" id="nav-toggle" aria-label="Toggle navigation">
+        <i class="fa-solid fa-bars text-xl"></i>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ==========================================================================
+     MOBILE RESPONSIVE DRAWER (<1024px)
+     ========================================================================== -->
+<div id="mobile-drawer-scrim"></div>
+<aside id="mobile-drawer" aria-hidden="true">
+  <div>
+    <div class="flex items-center justify-between pb-6 border-b border-gray-100">
+      <div class="brand-capsule">
+        <img src="/images/logo-white.png" alt="Clara AI" style="height: 22px; width: auto;">
+      </div>
+      <button id="nav-close" class="p-1.5 text-gray-500 hover:text-gray-900" aria-label="Close menu">
+        <i class="fa-solid fa-xmark text-lg"></i>
+      </button>
+    </div>
+    <nav class="flex flex-col gap-4 mt-6 text-base font-medium text-gray-700" id="mobile-nav-links">
+      <a href="#capabilities" class="py-2 hover:text-[#00EC97] transition-colors">Capabilities</a>
+      <a href="#interactive-demo" class="py-2 hover:text-[#00EC97] transition-colors">Live Showcase</a>
+      <a href="#infrastructure" class="py-2 hover:text-[#00EC97] transition-colors">Infrastructure</a>
+      <a href="#integrations" class="py-2 hover:text-[#00EC97] transition-colors">Integrations</a>
+      <a href="#founder" class="py-2 hover:text-[#00EC97] transition-colors">Our Story</a>
+      <a href="#faq" class="py-2 hover:text-[#00EC97] transition-colors">FAQ</a>
+    </nav>
+  </div>
+  <div class="pt-6 border-t border-gray-100 flex flex-col gap-3">
+    <button onclick="openBookingModal()" class="w-full py-3 rounded-xl bg-gray-900 text-white font-medium text-sm text-center shadow-md">
+      Book a Live Demo
+    </button>
+    <div class="text-xs text-gray-500 text-center">
+      <p>Direct Inquiries: <a href="mailto:biz@thehubcode.com" class="text-gray-800 underline">biz@thehubcode.com</a></p>
+      <p class="mt-0.5">+91 8369698455</p>
+    </div>
+  </div>
+</aside>
+
+<main>
+  <!-- ==========================================================================
+       HERO SECTION & AMBIENT GLOW SHOWCASE
+       ========================================================================== -->
+  <section class="bg-white pt-8 pb-16" id="hero">
+    <div class="max-w-7xl mx-auto px-6 sm:px-8 border-x border-black/11 max-xl:border-none text-center">
+      
+      <!-- Quick-start Pill Badge -->
+      <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-gray-100 border border-black/5 text-xs font-medium text-gray-700 mb-6 stagger-1">
+        <span class="w-2 h-2 rounded-full bg-[#00EC97] animate-pulse shadow-[0_0_8px_#00EC97]"></span>
+        <span>Next-Gen Autonomous Voice Workforce</span>
+      </div>
+
+      <!-- Hero Headline -->
+      <h1 class="hero-h1 text-gray-900 max-w-4xl mx-auto stagger-2">
+        Autonomous voice AI agents, built for high-velocity sales.
+      </h1>
+
+      <!-- Subtitle -->
+      <p class="section-subtitle max-w-2xl mx-auto mt-6 stagger-3">
+        Clara executes inbound qualification, live outbound follow-ups, and calendar bookings with human-grade prosody and sub-500ms conversational latency.
+      </p>
+
+      <!-- CTA Buttons -->
+      <div class="flex flex-wrap items-center justify-center gap-4 mt-8 stagger-4">
+        <button onclick="openBookingModal()" class="px-6 py-3.5 rounded-xl bg-gray-900 hover:bg-black text-white font-medium text-sm shadow-md transition transform active:scale-95">
+          Book a Live Demo
+        </button>
+        <a href="#interactive-demo" class="px-6 py-3.5 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-900 font-medium text-sm border border-black/5 transition">
+          Explore Live Demo
+        </a>
+      </div>
+      <p class="text-xs text-gray-400 mt-4 stagger-4 flex items-center justify-center gap-2">
+        <i class="fa-solid fa-shield-halved text-[#00EC97]"></i>
+        <span>15-Minute Setup • SOC-2 Type II Certified • Zero Disruption</span>
+      </p>
+
+      <!-- ======================================================================
+           EMBEDDED INTERACTIVE DEMO (WITH STRICT ZERO SCROLL DISRUPTION)
+           ====================================================================== -->
+      <div class="hero-glow-container mt-12 text-left" id="interactive-demo">
+        
+        <!-- Controls: Dashboard, Live Agent Calls, Knowledge Base, Analytics -->
+        <div class="sandbox-controls">
+          <button class="btn btn-primary active" type="button" onclick="navigateDemo('/', event)">Dashboard</button>
+          <button class="btn btn-primary" type="button" onclick="navigateDemo('/live', event)">Live Agent Calls</button>
+          <button class="btn btn-primary" type="button" onclick="navigateDemo('/knowledge', event)">Knowledge Base</button>
+          <button class="btn btn-primary" type="button" onclick="navigateDemo('/analytics', event)">Analytics</button>
+        </div>
+
+        <!-- Mobile Notice on small viewports -->
+        <div class="sandbox-mobile-message">
+          <h3>Interactive Desktop Experience</h3>
+          <p>This demo is fully interactive. For optimal simulation controls, view on desktop or expand viewport.</p>
+        </div>
+
+        <!-- Browser Mockup Window -->
+        <div class="mockup-browser">
+          <div class="mockup-browser-header">
+            <div class="mac-buttons">
+              <span class="close"></span>
+              <span class="minimize"></span>
+              <span class="maximize"></span>
+            </div>
+            <div class="address-bar" id="mockup-address-bar">https://app.claraai.com/dashboard</div>
+          </div>
+          <!-- Showcase Viewport Hosting React SPA Demo -->
+          <div class="mockup-browser-body" id="interactive-frontend-showcase">
+            <iframe id="interactive-demo-iframe" src="/demo/#/" title="ClaraAI Interactive Demo" style="width: 100%; height: 100%; border: none; display: block; background: #0b0f19;"></iframe>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       SIGNATURE STAR-TILE DIVIDER (LIGHT JUNCTION)
+       ========================================================================== -->
+  <div class="max-w-7xl mx-auto border-x border-black/11 max-xl:border-none">
+    <div class="near-star-tile-divider light"></div>
+  </div>
+
+  <!-- ==========================================================================
+       2-COLUMN CAPABILITIES ACCORDION & LIVE PREVIEW CANVAS
+       ========================================================================== -->
+  <section class="bg-white py-20" id="capabilities">
+    <div class="max-w-7xl mx-auto px-6 sm:px-8 border-x border-black/11 max-xl:border-none">
+      
+      <!-- Section Header -->
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-xs font-semibold uppercase tracking-wider text-[#00EC97] bg-[#00EC97]/10 px-3 py-1 rounded-full">Autonomous Capabilities</span>
+        <h2 class="section-h2 text-gray-900 mt-4">Every conversation handled with superhuman precision.</h2>
+        <p class="section-subtitle mt-3">From inbound discovery to objection neutralization and CRM sync — fully autonomous, zero latency.</p>
+      </div>
+
+      <!-- 2-Column Showcase Grid -->
+      <div class="grid lg:grid-cols-2 gap-10 items-stretch">
+        
+        <!-- Left Column: Interactive Feature Accordion -->
+        <div class="flex flex-col gap-4 justify-center" id="capabilities-accordion">
+          
+          <!-- Accordion Item 0: Autonomous Call Handling -->
+          <div class="capability-item active" data-index="0" onclick="selectCapability(0)">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-3.5">
+                <div class="w-9 h-9 rounded-xl bg-gray-100 flex items-center justify-center text-gray-900 text-sm font-semibold">
+                  <i class="fa-solid fa-headset text-sm"></i>
+                </div>
+                <h3 class="font-semibold text-lg text-gray-900">Autonomous Call Handling</h3>
+              </div>
+              <i class="fa-solid fa-chevron-right capability-chevron text-xs text-gray-400"></i>
+            </div>
+            <p class="text-sm text-gray-500 mt-3 leading-relaxed">
+              Engage inbound leads in under 2 seconds. Clara handles high-volume simultaneous calls, speaks with natural human prosody, and navigates complex branching dialogues without awkward silences.
+            </p>
+          </div>
+
+          <!-- Accordion Item 1: Real-Time Sentiment & Intent Detection -->
+          <div class="capability-item" data-index="1" onclick="selectCapability(1)">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-3.5">
+                <div class="w-9 h-9 rounded-xl bg-gray-100 flex items-center justify-center text-gray-900 text-sm font-semibold">
+                  <i class="fa-solid fa-wave-square text-sm"></i>
+                </div>
+                <h3 class="font-semibold text-lg text-gray-900">Real-Time Sentiment & Intent Detection</h3>
+              </div>
+              <i class="fa-solid fa-chevron-right capability-chevron text-xs text-gray-400"></i>
+            </div>
+            <p class="text-sm text-gray-500 mt-3 leading-relaxed">
+              Stream-analyze micro-tonality, customer urgency, and purchase readiness dynamically. Clara surfaces optimal objection rebuttals and modifies tone to maintain conversational momentum.
+            </p>
+          </div>
+
+          <!-- Accordion Item 2: Instant CRM & Calendar Sync -->
+          <div class="capability-item" data-index="2" onclick="selectCapability(2)">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-3.5">
+                <div class="w-9 h-9 rounded-xl bg-gray-100 flex items-center justify-center text-gray-900 text-sm font-semibold">
+                  <i class="fa-solid fa-calendar-check text-sm"></i>
+                </div>
+                <h3 class="font-semibold text-lg text-gray-900">Instant CRM & Calendar Sync</h3>
+              </div>
+              <i class="fa-solid fa-chevron-right capability-chevron text-xs text-gray-400"></i>
+            </div>
+            <p class="text-sm text-gray-500 mt-3 leading-relaxed">
+              Zero manual data entry. Every call note, verified timeline, qualified budget, and confirmed Google/Outlook meeting is structured and pushed to Salesforce or HubSpot instantly.
+            </p>
+          </div>
+
+          <!-- Accordion Item 3: Omnichannel Voice/SMS Hand-off -->
+          <div class="capability-item" data-index="3" onclick="selectCapability(3)">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-3.5">
+                <div class="w-9 h-9 rounded-xl bg-gray-100 flex items-center justify-center text-gray-900 text-sm font-semibold">
+                  <i class="fa-solid fa-comments text-sm"></i>
+                </div>
+                <h3 class="font-semibold text-lg text-gray-900">Omnichannel Voice/SMS Hand-off</h3>
+              </div>
+              <i class="fa-solid fa-chevron-right capability-chevron text-xs text-gray-400"></i>
+            </div>
+            <p class="text-sm text-gray-500 mt-3 leading-relaxed">
+              Send customized SMS brochures, payment links, and booking confirmations during or immediately after the call while prospect engagement is at its peak.
+            </p>
+          </div>
+
+        </div>
+
+        <!-- Right Column: Vibrant Mint Display Canvas with Dynamic Dark Card -->
+        <div class="preview-canvas">
+          <div class="preview-card-dark" id="capability-preview-card">
+            
+            <!-- Live Call Header -->
+            <div class="flex items-center justify-between pb-4 border-b border-white/10">
+              <div class="flex items-center gap-2.5">
+                <span class="w-2.5 h-2.5 rounded-full bg-[#00EC97] animate-pulse"></span>
+                <span class="text-xs font-semibold text-[#00EC97] tracking-wider uppercase" id="preview-status">IN CALL • 02:47</span>
+              </div>
+              
+              <!-- Soundwave Indicator -->
+              <div class="soundwave-container" aria-label="Audio waveform indicator">
+                <span class="soundwave-bar"></span>
+                <span class="soundwave-bar"></span>
+                <span class="soundwave-bar"></span>
+                <span class="soundwave-bar"></span>
+                <span class="soundwave-bar"></span>
+                <span class="soundwave-bar"></span>
+                <span class="soundwave-bar"></span>
+                <span class="soundwave-bar"></span>
+                <span class="soundwave-bar"></span>
+                <span class="soundwave-bar"></span>
+              </div>
+            </div>
+
+            <!-- Caller Profile & Intent -->
+            <div class="mt-5">
+              <div class="text-xs text-gray-400 font-medium">CALLER IDENTIFICATION</div>
+              <div class="text-base font-semibold text-white mt-1" id="preview-caller">Sarah Jenkins — VP Revenue Operations</div>
+              <div class="text-xs text-gray-400 mt-0.5" id="preview-company">Enterprise Scale (120 Reps) • Austin, TX</div>
+            </div>
+
+            <!-- Dynamic Intelligence Box -->
+            <div class="mt-5 p-3.5 rounded-xl bg-white/5 border border-white/10">
+              <div class="flex items-center justify-between text-xs">
+                <span class="text-gray-400" id="preview-metric-label-1">Detected Intent</span>
+                <span class="text-[#00EC97] font-semibold" id="preview-metric-val-1">Pricing & Inbound Qualification</span>
+              </div>
+              <div class="flex items-center justify-between text-xs mt-2.5">
+                <span class="text-gray-400" id="preview-metric-label-2">Conversational Latency</span>
+                <span class="text-white font-mono font-medium" id="preview-metric-val-2">340ms (Sub-human response)</span>
+              </div>
+              <div class="flex items-center justify-between text-xs mt-2.5">
+                <span class="text-gray-400" id="preview-metric-label-3">Objection Confidence</span>
+                <span class="text-[#31F49C] font-semibold" id="preview-metric-val-3">94% Match Probability</span>
+              </div>
+            </div>
+
+            <!-- Live Speech Bubble -->
+            <div class="mt-5 pt-4 border-t border-white/10">
+              <div class="text-[11px] text-gray-400 font-medium uppercase tracking-wider">LATEST AGENT UTTERANCE</div>
+              <p class="text-sm text-gray-200 mt-1.5 italic" id="preview-transcript">
+                "We provide SOC-2 Type II certification with immediate bi-directional CRM integration. I have Tuesday at 2 PM open for an engineering deep-dive."
+              </p>
+            </div>
+
+            <!-- Action Pill Indicator -->
+            <div class="mt-4 flex items-center justify-between text-xs text-gray-400">
+              <span class="flex items-center gap-1.5">
+                <i class="fa-solid fa-bolt text-[#00EC97]"></i>
+                <span id="preview-action-tag">Autonomous Execution Active</span>
+              </span>
+              <span class="text-[11px] font-mono text-gray-500">Node: US-East-1</span>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       SIGNATURE STAR-TILE DIVIDER (TRANSITION TO DEEP SLATE INFRASTRUCTURE)
+       ========================================================================== -->
+  <div class="bg-[#171717]">
+    <div class="max-w-7xl mx-auto border-x border-white/11 max-xl:border-none">
+      <div class="near-star-tile-divider dark"></div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODULAR DARK INFRASTRUCTURE GRID & TICKER
+       ========================================================================== -->
+  <section class="bg-[#171717] text-white py-20" id="infrastructure">
+    <div class="max-w-7xl mx-auto px-6 sm:px-8 border-x border-white/11 max-xl:border-none">
+      
+      <!-- Section Header -->
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-xs font-semibold uppercase tracking-wider text-[#00EC97] bg-[#00EC97]/10 px-3 py-1 rounded-full">Engineered Infrastructure</span>
+        <h2 class="section-h2 text-white mt-4">Enterprise infrastructure engineered for real-time voice.</h2>
+        <p class="section-subtitle text-gray-400 mt-3">Sub-500ms global latency, bank-grade encryption, and seamless human escalation.</p>
+      </div>
+
+      <!-- 3-Card Border Grid Module (grid gap-px bg-white/11) -->
+      <div class="infra-grid-container rounded-2xl overflow-hidden border border-white/11">
+        
+        <!-- Card 1 -->
+        <div class="infra-card">
+          <div>
+            <div class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-[#00EC97] mb-6">
+              <i class="fa-solid fa-shield-halved text-lg"></i>
+            </div>
+            <h3 class="font-semibold text-xl text-white">Enterprise Security & Compliance</h3>
+            <p class="text-sm text-gray-400 mt-3 leading-relaxed">
+              SOC-2 Type II certified and HIPAA-ready architecture. End-to-end encrypted WebRTC audio streams with optional zero voice/transcript retention for regulated enterprise sales workflows.
+            </p>
+          </div>
+          <div class="mt-8 pt-4 border-t border-white/10 flex items-center gap-2 text-xs text-gray-400">
+            <span class="w-2 h-2 rounded-full bg-[#00EC97]"></span>
+            <span>Zero Audio Data Retention Option</span>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="infra-card">
+          <div>
+            <div class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-[#00EC97] mb-6">
+              <i class="fa-solid fa-gauge-high text-lg"></i>
+            </div>
+            <h3 class="font-semibold text-xl text-white">Sub-500ms Ultra-Low Latency</h3>
+            <p class="text-sm text-gray-400 mt-3 leading-relaxed">
+              Streaming bidirectional speech-to-text (ASR) coupled with edge neural TTS synthesis deployed across 14 global edge PoPs to eliminate dead air and deliver natural, conversational turn-taking.
+            </p>
+          </div>
+          <div class="mt-8 pt-4 border-t border-white/10 flex items-center gap-2 text-xs text-gray-400">
+            <span class="w-2 h-2 rounded-full bg-[#00EC97]"></span>
+            <span>340ms Median Conversational Turn</span>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="infra-card">
+          <div>
+            <div class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-[#00EC97] mb-6">
+              <i class="fa-solid fa-user-shield text-lg"></i>
+            </div>
+            <h3 class="font-semibold text-xl text-white">Human-in-the-Loop Escalation</h3>
+            <p class="text-sm text-gray-400 mt-3 leading-relaxed">
+              Autonomous sentiment anomaly detection triggering automated warm transfers to human account executives, delivering live audio hand-off and structured conversation dossiers instantaneously.
+            </p>
+          </div>
+          <div class="mt-8 pt-4 border-t border-white/10 flex items-center gap-2 text-xs text-gray-400">
+            <span class="w-2 h-2 rounded-full bg-[#00EC97]"></span>
+            <span>Seamless Live Rep Warm Transfer</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Marquee Ecosystem Integration Ticker -->
+      <div class="mt-20" id="integrations">
+        <div class="text-center mb-8">
+          <p class="text-xs uppercase tracking-wider font-semibold text-gray-400">Natively Integrated With Your Sales Stack</p>
+        </div>
+        <div class="ticker-wrap">
+          <div class="ticker-track">
+            <!-- Set 1 -->
+            <div class="ticker-item"><i class="fa-brands fa-hubspot text-[#FF7A59]"></i> HubSpot CRM</div>
+            <div class="ticker-item"><i class="fa-brands fa-salesforce text-[#00A1E0]"></i> Salesforce</div>
+            <div class="ticker-item"><i class="fa-solid fa-headset text-[#03363D]"></i> Zendesk</div>
+            <div class="ticker-item"><i class="fa-solid fa-phone text-[#F22F46]"></i> Twilio Voice</div>
+            <div class="ticker-item"><i class="fa-brands fa-stripe text-[#635BFF]"></i> Stripe Billing</div>
+            <div class="ticker-item"><i class="fa-solid fa-bolt text-[#FF4F00]"></i> Zapier Engine</div>
+            <div class="ticker-item"><i class="fa-brands fa-google text-[#4285F4]"></i> Google Calendar</div>
+            <div class="ticker-item"><i class="fa-brands fa-slack text-[#4A154B]"></i> Slack Notifications</div>
+            <!-- Set 2 (Infinite duplicate) -->
+            <div class="ticker-item"><i class="fa-brands fa-hubspot text-[#FF7A59]"></i> HubSpot CRM</div>
+            <div class="ticker-item"><i class="fa-brands fa-salesforce text-[#00A1E0]"></i> Salesforce</div>
+            <div class="ticker-item"><i class="fa-solid fa-headset text-[#03363D]"></i> Zendesk</div>
+            <div class="ticker-item"><i class="fa-solid fa-phone text-[#F22F46]"></i> Twilio Voice</div>
+            <div class="ticker-item"><i class="fa-brands fa-stripe text-[#635BFF]"></i> Stripe Billing</div>
+            <div class="ticker-item"><i class="fa-solid fa-bolt text-[#FF4F00]"></i> Zapier Engine</div>
+            <div class="ticker-item"><i class="fa-brands fa-google text-[#4285F4]"></i> Google Calendar</div>
+            <div class="ticker-item"><i class="fa-brands fa-slack text-[#4A154B]"></i> Slack Notifications</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3-Column High-Impact Volume Metric Counters -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 mt-20 pt-16 border-t border-white/11 text-center">
+        <div>
+          <div class="metric-number text-white font-mono tracking-tighter" id="counter-1">10M+</div>
+          <div class="text-sm text-gray-400 mt-2 font-medium">Conversations Handled</div>
+          <p class="text-xs text-gray-500 mt-1">Autonomous calls across global sales teams</p>
+        </div>
+        <div>
+          <div class="metric-number text-[#00EC97] font-mono tracking-tighter" id="counter-2">&lt;450ms</div>
+          <div class="text-sm text-gray-400 mt-2 font-medium">Median Conversational Latency</div>
+          <p class="text-xs text-gray-500 mt-1">Faster than human conversational response</p>
+        </div>
+        <div>
+          <div class="metric-number text-white font-mono tracking-tighter" id="counter-3">99.99%</div>
+          <div class="text-sm text-gray-400 mt-2 font-medium">Enterprise Uptime SLA</div>
+          <p class="text-xs text-gray-500 mt-1">Fault-tolerant distributed voice network</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       FOUNDER STORY SECTION (Near.com Style)
+       ========================================================================== -->
+  <section class="bg-[#171717] text-white py-16 border-t border-white/10" id="founder">
+    <div class="max-w-7xl mx-auto px-6 sm:px-8 border-x border-white/11 max-xl:border-none">
+      <div class="bg-gradient-to-br from-white/5 to-white/[0.02] border border-white/10 rounded-2xl p-8 sm:p-12 relative overflow-hidden">
+        <div class="grid lg:grid-cols-[1fr_1.6fr] gap-8 items-center relative z-10">
+          <div class="flex flex-col items-center sm:items-start text-center sm:text-left">
+            <div class="w-32 h-32 rounded-2xl overflow-hidden border-2 border-[#00EC97] shadow-xl mb-4 bg-gray-800">
+              <img src="/images/founder-vitus.png" alt="Vitus Rodrigo, Founder" class="w-full h-full object-cover">
+            </div>
+            <h4 class="font-bold text-lg text-white">Vitus Rodrigo</h4>
+            <p class="text-sm text-[#00EC97]">Founder & CEO, Clara AI</p>
+            <p class="text-xs text-gray-400 mt-1">Dubai • London • Silicon Valley</p>
+          </div>
+          <div>
+            <div class="text-[#00EC97] text-3xl font-serif mb-2">“</div>
+            <blockquote class="text-lg sm:text-xl text-gray-200 font-normal leading-relaxed">
+              Sales teams don't lose deals because their product is bad. They lose deals because reps hesitate, miss objections, or forget pricing under pressure. Clara AI gives every salesperson an unshakeable, sub-second co-pilot.
+            </blockquote>
+            <p class="text-sm text-gray-400 mt-4 leading-relaxed">
+              Built by enterprise sales veterans and voice engineers who previously built high-frequency trading networks and conversational pipelines for Fortune 500 enterprises.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       SIGNATURE STAR-TILE DIVIDER (TRANSITION BACK TO WHITE FAQ)
+       ========================================================================== -->
+  <div class="bg-white">
+    <div class="max-w-7xl mx-auto border-x border-black/11 max-xl:border-none">
+      <div class="near-star-tile-divider light"></div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       INTERACTIVE FAQ SECTION (SPLIT LAYOUT)
+       ========================================================================== -->
+  <section class="bg-white py-20" id="faq">
+    <div class="max-w-7xl mx-auto px-6 sm:px-8 border-x border-black/11 max-xl:border-none">
+      
+      <div class="grid lg:grid-cols-[1fr_2fr] gap-12 items-start">
+        
+        <!-- Left Column: Sticky Title & Contact CTA -->
+        <div class="lg:sticky lg:top-28">
+          <span class="text-xs font-semibold uppercase tracking-wider text-[#00EC97] bg-[#00EC97]/10 px-3 py-1 rounded-full">Frequently Asked Questions</span>
+          <h2 class="section-h2 text-gray-900 mt-4">Questions about deploying Clara AI?</h2>
+          <p class="section-subtitle mt-3">
+            Everything you need to know about integrating Clara AI with your existing telephony, CRM, and sales pipelines.
+          </p>
+          <div class="mt-8">
+            <button onclick="openBookingModal()" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl border border-gray-300 hover:border-gray-400 bg-white text-gray-900 font-medium text-sm shadow-sm transition">
+              <span>Talk to voice engineering</span>
+              <i class="fa-solid fa-arrow-right text-xs"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Right Column: 6 Expandable Questions -->
+        <div class="flex flex-col border-t border-black/11">
+          
+          <!-- Q1 -->
+          <div class="faq-item">
+            <button class="faq-button" onclick="toggleFaq(this)">
+              <span>How does Clara AI connect with our telephony and CRM?</span>
+              <svg class="faq-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+              </svg>
+            </button>
+            <div class="faq-content">
+              <p class="text-sm text-gray-600 leading-relaxed">
+                Clara AI connects directly via SIP trunks, WebRTC, or native Twilio / Vonage integrations. It hooks into HubSpot, Salesforce, or custom webhooks via secure REST APIs, pulling product databases and pushing real-time conversation transcripts in milliseconds.
+              </p>
+            </div>
+          </div>
+
+          <!-- Q2 -->
+          <div class="faq-item">
+            <button class="faq-button" onclick="toggleFaq(this)">
+              <span>What makes Clara's latency and voice naturalness superior?</span>
+              <svg class="faq-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+              </svg>
+            </button>
+            <div class="faq-content">
+              <p class="text-sm text-gray-600 leading-relaxed">
+                Standard voice bots route speech through generic multi-step HTTP endpoints, resulting in 1.5–3.0 second pauses. Clara uses streaming bidirectional audio buffers and edge neural TTS running on global PoPs, reducing end-to-end response turn-around to sub-450ms.
+              </p>
+            </div>
+          </div>
+
+          <!-- Q3 -->
+          <div class="faq-item">
+            <button class="faq-button" onclick="toggleFaq(this)">
+              <span>What happens when a prospect interrupts or asks unexpected questions?</span>
+              <svg class="faq-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+              </svg>
+            </button>
+            <div class="faq-content">
+              <p class="text-sm text-gray-600 leading-relaxed">
+                Clara features full-duplex Voice Activity Detection (VAD). If the customer speaks while Clara is responding, Clara immediately halts speech synthesis, listens to the new objection, and addresses it seamlessly without speaking over the caller.
+              </p>
+            </div>
+          </div>
+
+          <!-- Q4 -->
+          <div class="faq-item">
+            <button class="faq-button" onclick="toggleFaq(this)">
+              <span>Can we customize Clara's voice persona, tone, and objection rebuttals?</span>
+              <svg class="faq-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+              </svg>
+            </button>
+            <div class="faq-content">
+              <p class="text-sm text-gray-600 leading-relaxed">
+                Yes. You have complete control over brand voice personas (accent, pitch, cadence, enthusiasm), brand guardrails, custom pricing scripts, and competitor rebuttal cards via your Clara Knowledge Base dashboard.
+              </p>
+            </div>
+          </div>
+
+          <!-- Q5 -->
+          <div class="faq-item">
+            <button class="faq-button" onclick="toggleFaq(this)">
+              <span>What security and privacy standards does Clara comply with?</span>
+              <svg class="faq-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+              </svg>
+            </button>
+            <div class="faq-content">
+              <p class="text-sm text-gray-600 leading-relaxed">
+                Clara is SOC-2 Type II certified and HIPAA ready. All transit is TLS 1.3 encrypted, and we offer zero audio/transcript retention configurations so your customer conversation data is never stored on persistent disks or used for public model training.
+              </p>
+            </div>
+          </div>
+
+          <!-- Q6 -->
+          <div class="faq-item">
+            <button class="faq-button" onclick="toggleFaq(this)">
+              <span>How long does implementation take?</span>
+              <svg class="faq-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+              </svg>
+            </button>
+            <div class="faq-content">
+              <p class="text-sm text-gray-600 leading-relaxed">
+                Most sales teams go live in under 48 hours. Connect your SIP numbers or call forwarding, upload your sales playbook or website URL into the Knowledge Base, and launch outbound campaigns or inbound qualification instantly.
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       CLOSING NEON MINT CTA BANNER
+       ========================================================================== -->
+  <section class="closing-banner py-20 px-6 sm:px-8 text-center">
+    <div class="max-w-4xl mx-auto">
+      <span class="text-xs uppercase tracking-widest font-bold text-gray-900 bg-black/10 px-3.5 py-1.5 rounded-full inline-block mb-4">Start In 15 Minutes</span>
+      <h2 class="hero-h1 text-gray-950 max-w-3xl mx-auto">
+        Your AI voice workforce is minutes away.
+      </h2>
+      <p class="text-base sm:text-lg text-gray-800 font-medium max-w-xl mx-auto mt-5">
+        Deploy autonomous sales agents that never miss an objection, follow up instantly, and book confirmed meetings around the clock.
+      </p>
+      <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
+        <button onclick="openBookingModal()" class="px-8 py-4 rounded-xl bg-gray-900 hover:bg-black text-white font-semibold text-base shadow-xl transition transform active:scale-95">
+          Book a Live Demo
+        </button>
+        <a href="#interactive-demo" class="px-6 py-4 rounded-xl bg-white/40 hover:bg-white/60 text-gray-950 font-semibold text-base transition">
+          Test Live Dashboard
+        </a>
+      </div>
+      <p class="text-xs text-gray-800 font-medium mt-4">No credit card required • SOC-2 Compliant • Rapid Deployment</p>
+    </div>
+  </section>
+
+</main>
+
+<!-- ==========================================================================
+     STRUCTURED DEEP SLATE DARK FOOTER
+     ========================================================================== -->
+<footer class="bg-[#171717] text-gray-400 relative pt-16 pb-12 overflow-hidden">
+  
+  <!-- Ambient Top Green Glow Blur -->
+  <div class="footer-top-blur"></div>
+
+  <div class="max-w-7xl mx-auto px-6 sm:px-8 border-x border-white/11 max-xl:border-none relative z-10">
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-16 border-b border-white/10">
+      
+      <!-- Brand & Contact (2 cols) -->
+      <div class="lg:col-span-2">
+        <div class="flex items-center gap-3">
+          <img src="/images/logo-white.png" alt="Clara AI" class="h-9 w-auto">
+        </div>
+        <p class="text-sm text-gray-400 mt-4 leading-relaxed max-w-sm">
+          The autonomous voice workforce for high-velocity sales organizations. Instant qualification, objection resolution, and CRM calendar bookings with human prosody.
+        </p>
+        <div class="mt-6 flex flex-col gap-1.5 text-xs text-gray-400">
+          <p><strong class="text-white">Email:</strong> <a href="mailto:biz@thehubcode.com" class="hover:text-[#00EC97]">biz@thehubcode.com</a></p>
+          <p><strong class="text-white">Phone:</strong> <a href="tel:+918369698455" class="hover:text-[#00EC97]">+91 8369698455</a></p>
+          <p><strong class="text-white">Platform:</strong> Powered by TheHubCode</p>
+        </div>
+      </div>
+
+      <!-- Links: Platform -->
+      <div>
+        <h4 class="text-xs font-semibold uppercase tracking-wider text-white mb-4">Platform</h4>
+        <ul class="flex flex-col gap-2.5 text-sm">
+          <li><a href="#capabilities" class="hover:text-white transition-colors">Autonomous Voice</a></li>
+          <li><a href="#interactive-demo" class="hover:text-white transition-colors">Live Dashboard</a></li>
+          <li><a href="#infrastructure" class="hover:text-white transition-colors">Sub-500ms Latency</a></li>
+          <li><a href="#integrations" class="hover:text-white transition-colors">CRM Integrations</a></li>
+          <li><a href="#infrastructure" class="hover:text-white transition-colors">Security & SOC-2</a></li>
+        </ul>
+      </div>
+
+      <!-- Links: Solutions -->
+      <div>
+        <h4 class="text-xs font-semibold uppercase tracking-wider text-white mb-4">Solutions</h4>
+        <ul class="flex flex-col gap-2.5 text-sm">
+          <li><a href="#capabilities" class="hover:text-white transition-colors">Inbound Qualification</a></li>
+          <li><a href="#capabilities" class="hover:text-white transition-colors">Outbound Sales</a></li>
+          <li><a href="#capabilities" class="hover:text-white transition-colors">Real Estate Sales</a></li>
+          <li><a href="#capabilities" class="hover:text-white transition-colors">Financial Services</a></li>
+          <li><a href="#capabilities" class="hover:text-white transition-colors">Healthcare Intake</a></li>
+        </ul>
+      </div>
+
+      <!-- Links: Company & Legal -->
+      <div>
+        <h4 class="text-xs font-semibold uppercase tracking-wider text-white mb-4">Company</h4>
+        <ul class="flex flex-col gap-2.5 text-sm">
+          <li><a href="#founder" class="hover:text-white transition-colors">Our Story</a></li>
+          <li><a href="#faq" class="hover:text-white transition-colors">FAQ</a></li>
+          <li><a href="#" onclick="openBookingModal(); return false;" class="hover:text-white transition-colors">Book a Demo</a></li>
+          <li><a href="#" class="hover:text-white transition-colors">Privacy Policy</a></li>
+          <li><a href="#" class="hover:text-white transition-colors">Terms of Service</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Giant Low-Opacity Watermark -->
+    <div class="footer-watermark">CLARA AI</div>
+
+    <!-- Bottom Bar -->
+    <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-500 gap-4">
+      <p>© 2026 Clara AI Inc. All rights reserved. | Powered by TheHubCode</p>
+      <div class="flex items-center gap-6">
+        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="hover:text-white text-base"><i class="fa-brands fa-linkedin"></i></a>
+        <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="hover:text-white text-base"><i class="fa-brands fa-youtube"></i></a>
+        <a href="https://x.com" target="_blank" rel="noopener noreferrer" class="hover:text-white text-base"><i class="fa-brands fa-x-twitter"></i></a>
+      </div>
+    </div>
+
+  </div>
+</footer>
+
+<!-- ==========================================================================
+     BOOKING & LEAD CAPTURE MODAL DIALOG
+     ========================================================================== -->
+<div class="modal-backdrop" id="booking-modal" aria-hidden="true" onclick="handleModalBackdropClick(event)">
+  <div class="modal-panel" role="dialog" aria-modal="true">
+    <div class="flex items-center justify-between pb-4 border-b border-white/10">
+      <div class="flex items-center gap-2.5">
+        <img src="/images/favicon.png" alt="Clara AI" class="w-6 h-6 rounded-md">
+        <h3 class="font-semibold text-lg text-white">Schedule Clara AI Live Demo</h3>
+      </div>
+      <button onclick="closeBookingModal()" class="text-gray-400 hover:text-white p-1 text-lg" aria-label="Close modal">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <!-- Lead Form -->
+    <form id="demo-form" class="mt-5 space-y-4">
+      <div>
+        <label class="block text-xs font-medium text-gray-300 mb-1" for="name">Your Name *</label>
+        <input type="text" id="name" name="name" required class="w-full px-3.5 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white text-sm focus:border-[#00EC97] focus:outline-none" placeholder="Alex Morgan">
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-xs font-medium text-gray-300 mb-1" for="email">Work Email *</label>
+          <input type="email" id="email" name="email" required class="w-full px-3.5 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white text-sm focus:border-[#00EC97] focus:outline-none" placeholder="alex@company.com">
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-gray-300 mb-1" for="phone">Phone Number *</label>
+          <input type="tel" id="phone" name="phone" required class="w-full px-3.5 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white text-sm focus:border-[#00EC97] focus:outline-none" placeholder="+1 (555) 000-0000">
+        </div>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-xs font-medium text-gray-300 mb-1" for="company">Company Name *</label>
+          <input type="text" id="company" name="company" required class="w-full px-3.5 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white text-sm focus:border-[#00EC97] focus:outline-none" placeholder="Acme Inc">
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-gray-300 mb-1" for="team_size">Sales Team Size</label>
+          <select id="team_size" name="team_size" class="w-full px-3.5 py-2.5 rounded-lg bg-[#171717] border border-white/10 text-white text-sm focus:border-[#00EC97] focus:outline-none">
+            <option value="1-10 reps">1–10 Reps</option>
+            <option value="11-50 reps">11–50 Reps</option>
+            <option value="51-200 reps" selected>51–200 Reps</option>
+            <option value="200+ reps">200+ Reps</option>
+          </select>
+        </div>
+      </div>
+      <div>
+        <label class="block text-xs font-medium text-gray-300 mb-1" for="message">Primary Voice Automation Goals</label>
+        <textarea id="message" name="message" rows="2" class="w-full px-3.5 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white text-sm focus:border-[#00EC97] focus:outline-none" placeholder="Inbound qualification, outbound pipeline, CRM sync..."></textarea>
+      </div>
+      <div id="form-status" class="text-xs"></div>
+      <div class="pt-2 flex items-center justify-between">
+        <button type="submit" class="form-submit px-6 py-3 rounded-xl bg-[#00EC97] hover:bg-[#31F49C] text-gray-900 font-semibold text-sm transition shadow-lg">
+          Confirm Live Demo Request
+        </button>
+        <span class="text-xs text-gray-500">Response within 2 hours</span>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ==========================================================================
+     ZERO-SCROLL-DISRUPTION RUNTIME SCRIPTS & POSTMESSAGE BRIDGE
+     ========================================================================== -->
+<script>
+let scrollLockY = null;
+let scrollLockUntil = 0;
+let scrollLockRafId = null;
+
+function releaseScrollLock() {
+  scrollLockY = null;
+  scrollLockUntil = 0;
+  if (scrollLockRafId !== null) {
+    cancelAnimationFrame(scrollLockRafId);
+    scrollLockRafId = null;
+  }
+}
+
+// Ensure deliberate user scroll gestures are never hijacked or fought
+window.addEventListener('wheel', releaseScrollLock, { passive: true });
+window.addEventListener('touchmove', releaseScrollLock, { passive: true });
+window.addEventListener('pointerdown', releaseScrollLock, { passive: true });
+window.addEventListener('keydown', (e) => {
+  if (['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Space', 'Home', 'End', 'Tab'].includes(e.code || e.key)) {
+    releaseScrollLock();
+  }
+}, { passive: true });
+
+// Prevent programmatic focus on parent page from scrolling the viewport
+if (typeof HTMLElement !== 'undefined' && HTMLElement.prototype.focus) {
+  const originalFocus = HTMLElement.prototype.focus;
+  HTMLElement.prototype.focus = function (options) {
+    if (typeof options === 'object' && options !== null) {
+      return originalFocus.call(this, { ...options, preventScroll: options.preventScroll ?? true });
+    }
+    return originalFocus.call(this, { preventScroll: true });
+  };
+}
+
+function enforceScrollLock(y, duration = 300) {
+  scrollLockY = y;
+  scrollLockUntil = performance.now() + duration;
+  if (scrollLockRafId !== null) {
+    cancelAnimationFrame(scrollLockRafId);
+  }
+  const check = () => {
+    if (scrollLockY !== null && performance.now() < scrollLockUntil) {
+      if (Math.abs(window.scrollY - scrollLockY) > 0) {
+        window.scrollTo({ top: scrollLockY, behavior: 'instant' });
+      }
+      scrollLockRafId = requestAnimationFrame(check);
+    } else {
+      scrollLockY = null;
+      scrollLockRafId = null;
+    }
+  };
+  scrollLockRafId = requestAnimationFrame(check);
+}
+
+function navigateDemo(route, e) {
+  if (e && e.preventDefault) e.preventDefault();
+  const currentY = window.scrollY;
+  enforceScrollLock(currentY, 300);
+
+  // Update active state on control buttons
+  const buttons = document.querySelectorAll('.sandbox-controls button');
+  buttons.forEach(btn => {
+    const text = btn.textContent.trim().toLowerCase();
+    const isTarget = (route === '/' && text.includes('dashboard')) ||
+                     (route === '/live' && text.includes('live')) ||
+                     (route === '/knowledge' && text.includes('knowledge')) ||
+                     (route === '/analytics' && text.includes('analytics'));
+    if (isTarget) {
+      btn.classList.add('active');
+    } else {
+      btn.classList.remove('active');
+    }
+  });
+
+  const iframe = document.getElementById('interactive-demo-iframe');
+  const addressBar = document.getElementById('mockup-address-bar');
+  if (iframe && iframe.contentWindow) {
+    try {
+      iframe.contentWindow.postMessage({ type: 'CLARA_NAVIGATE', route }, '*');
+    } catch (_) {}
+    try {
+      iframe.contentWindow.location.hash = '#' + (route === '/' ? '/' : route);
+    } catch (_) {}
+  }
+  if (addressBar) {
+    const displayRoute = route === '/' ? '/dashboard' : route;
+    addressBar.textContent = 'https://app.claraai.com' + displayRoute;
+  }
+}
+
+window.addEventListener('message', (event) => {
+  const iframe = document.getElementById('interactive-demo-iframe');
+  if (!iframe || event.source !== iframe.contentWindow) return;
+  if (event.data) {
+    if (event.data.type === 'DEMO_LOCK_SCROLL') {
+      enforceScrollLock(window.scrollY, 300);
+    } else if (event.data.type === 'DEMO_ROUTE_CHANGED') {
+      const rawRoute = (event.data.route || '').replace(/^#\/?/, '/');
+      const displayRoute = (!rawRoute || rawRoute === '/') ? '/dashboard' : rawRoute;
+      const addressBar = document.getElementById('mockup-address-bar');
+      if (addressBar) addressBar.textContent = 'https://app.claraai.com' + displayRoute;
+    }
+  }
+});
+
+function attachIframeListeners() {
+  const iframe = document.getElementById('interactive-demo-iframe');
+  const addressBar = document.getElementById('mockup-address-bar');
+  if (!iframe) return;
+
+  const syncAddressBar = () => {
+    try {
+      if (iframe.contentWindow) {
+        const hash = (iframe.contentWindow.location.hash || '').replace(/^#\/?/, '/');
+        const displayRoute = (!hash || hash === '/') ? '/dashboard' : hash;
+        if (addressBar) addressBar.textContent = 'https://app.claraai.com' + displayRoute;
+      }
+    } catch (_) {}
+  };
+
+  const bindHashChange = () => {
+    try {
+      if (iframe.contentWindow) {
+        iframe.contentWindow.removeEventListener('hashchange', syncAddressBar);
+        iframe.contentWindow.addEventListener('hashchange', syncAddressBar);
+        syncAddressBar();
+      }
+    } catch (_) {}
+  };
+
+  bindHashChange();
+  iframe.addEventListener('load', bindHashChange);
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', attachIframeListeners);
+} else {
+  attachIframeListeners();
+}
+</script>
+
+<script src="/js/main.js"></script>
+</body>
+</html>

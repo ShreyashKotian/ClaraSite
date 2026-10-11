@@ -1,0 +1,110 @@
+/* Themed select: a trigger that looks like our inputs, plus an owned popover
+   list so the options follow the theme instead of the operating system. */
+
+.wrap {
+  position: relative;
+}
+
+.trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 12px;
+  font: inherit;
+  font-size: 0.88rem;
+  text-align: left;
+  color: var(--text);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  cursor: pointer;
+  transition:
+    border-color var(--t) var(--ease),
+    background var(--t) var(--ease);
+}
+.trigger:hover:not(:disabled) {
+  border-color: var(--border-strong);
+}
+.trigger:focus-visible {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-ring);
+}
+.trigger[aria-expanded="true"] {
+  border-color: var(--accent);
+}
+.trigger:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.triggerLabel {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chevron {
+  flex: none;
+  display: grid;
+  place-items: center;
+  color: var(--text-faint);
+  transform: rotate(90deg);
+  transition: transform var(--t) var(--ease);
+}
+.chevron[data-open="true"] {
+  transform: rotate(-90deg);
+}
+
+.list {
+  position: absolute;
+  z-index: 40;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  max-height: 264px;
+  overflow-y: auto;
+  padding: 5px;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r);
+  box-shadow: var(--shadow);
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  padding: 9px 10px;
+  font: inherit;
+  font-size: 0.86rem;
+  text-align: left;
+  color: var(--text-sub);
+  background: none;
+  border: none;
+  border-radius: var(--r-sm);
+  cursor: pointer;
+}
+.option[data-active="true"] {
+  color: var(--text);
+  background: var(--surface-2);
+}
+.option[aria-selected="true"] {
+  color: var(--accent-text);
+  font-weight: 600;
+}
+.option svg {
+  flex: none;
+  color: var(--accent);
+}
+
+.optionLabel {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
